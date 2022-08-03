@@ -10,3 +10,7 @@ export const expectLabelInTheDocument = (label) => {
 export const expectTextInTheDocument = (text) => {
   expect(screen.getByText(text)).toBeInTheDocument();
 };
+
+export const expectRadioInTheDocument = (label) => {
+  expect(screen.getByRole("radio", { name: label })).toBeInTheDocument();
+};
