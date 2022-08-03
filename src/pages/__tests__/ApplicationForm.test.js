@@ -107,10 +107,12 @@ describe("ApplicationForm", () => {
     expectTextInTheDocument(
       "Nomor Akta Pendirian Perusahaan Tidak Boleh Kosong"
     );
-    // expectTextInTheDocument("Tempat dikeluarkan identitas Tidak Boleh Kosong");
-    // expectTextInTheDocument(
-    //   "Tanggal berlaku akta pendirian Tidak Boleh Kosong"
-    // );
-    // expectTextInTheDocument("Alamat Kantor Tidak Boleh Kosong");
+    expectTextInTheDocument(
+      "Tempat dikeluarkan Akta Pendirian Tidak Boleh Kosong"
+    );
+    expectTextInTheDocument(
+      "Tanggal berlaku akta pendirian Tidak Boleh Kosong"
+    );
+    expectTextInTheDocument("Alamat kantor Tidak Boleh Kosong");
   });
 });

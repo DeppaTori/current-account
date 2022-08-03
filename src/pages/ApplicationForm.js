@@ -4,9 +4,10 @@ import { DataPerusahaanFields } from "../components/DataPerusahaanFields";
 import { JenisIdentitasUtamaFields } from "../components/JenisIdentitasUtamaFields";
 import { JENIS_USAHA_LAINNYA } from "../constants";
 import {
-  generateFieldMdtryAlNumJenisIdentitasUtama,
   generateName,
   isAlphaNumeric,
+  validateEmpty,
+  validateEmptyAndAlphaNumeric,
 } from "../Helper";
 
 export const ApplicationForm = () => {
@@ -24,6 +25,8 @@ export const ApplicationForm = () => {
     jenisIdentitasUtama: {
       nomor: "",
       tempatKeluarAkta: "",
+      tglBerlakuAkta: "",
+      alamatKantor: "",
     },
   });
   const [namaPerusahaan, setNamaPerusahaan] = useState("");
@@ -33,6 +36,8 @@ export const ApplicationForm = () => {
   const [jenisIdentitasUtama, setJenisIdentitasUtama] = useState({
     nomor: "",
     tempatKeluarAkta: "",
+    tglBerlakuAkta: "",
+    alamatKantor: "",
   });
 
   const fieldsManager = [
@@ -118,25 +123,86 @@ export const ApplicationForm = () => {
       validations: [
         {
           validate: function () {
-            if (jenisIdentitasUtama.nomor.length <= 0) {
-              return {
-                jenisIdentitasUtama: {
-                  ...validationMessages.jenisIdentitasUtama,
-                  nomor: "Nomor Akta Pendirian Perusahaan Tidak Boleh Kosong",
-                },
-              };
-            } else if (!isAlphaNumeric(jenisIdentitasUtama.nomor)) {
-              return {
-                jenisIdentitasUtama: {
-                  ...validationMessages.jenisIdentitasUtama,
-                  nomor: "Nomor Akta Pendirian Perusahaan harus alphanumeric",
-                },
-              };
-            }
+            let nomor = validateEmptyAndAlphaNumeric(
+              jenisIdentitasUtama.nomor,
+              "Nomor Akta Pendirian Perusahaan"
+            );
+
             return {
               jenisIdentitasUtama: {
-                ...validationMessages.jenisIdentitasUtama,
-                nomor: "",
+                nomor: nomor,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tempat dikeluarkan Akta Pendirian"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tempatKeluarAkta: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let tempatKeluarAkta = validateEmptyAndAlphaNumeric(
+              jenisIdentitasUtama.tempatKeluarAkta,
+              "Tempat dikeluarkan Akta Pendirian"
+            );
+
+            return {
+              jenisIdentitasUtama: {
+                tempatKeluarAkta: tempatKeluarAkta,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tanggal berlaku akta pendirian"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tglBerlakuAkta: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let tglBerlakuAkta = validateEmpty(
+              jenisIdentitasUtama.tglBerlakuAkta,
+              "Tanggal berlaku akta pendirian"
+            );
+
+            return {
+              jenisIdentitasUtama: {
+                tglBerlakuAkta: tglBerlakuAkta,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Alamat kantor"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          alamatKantor: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let alamatKantor = validateEmptyAndAlphaNumeric(
+              jenisIdentitasUtama.alamatKantor,
+              "Alamat kantor"
+            );
+
+            return {
+              jenisIdentitasUtama: {
+                alamatKantor: alamatKantor,
               },
             };
           },
@@ -204,20 +270,32 @@ export const ApplicationForm = () => {
     let mergeErrors = {
       badanUsahaLainnya: badanUsahaLainnyaError,
       branchCode: branchCodeError,
+      jenisIdentitasUtama: {},
     };
 
     fieldsManager.forEach((field) => {
       let errorValidation = {};
+
       if (field.validations.length > 0) {
         field.validations.forEach((validation) => {
           errorValidation = validation.validate();
         });
       }
 
-      mergeErrors = {
-        ...mergeErrors,
-        ...errorValidation,
-      };
+      if ("jenisIdentitasUtama" in errorValidation) {
+        mergeErrors = {
+          ...mergeErrors,
+          jenisIdentitasUtama: {
+            ...mergeErrors.jenisIdentitasUtama,
+            ...errorValidation.jenisIdentitasUtama,
+          },
+        };
+      } else {
+        mergeErrors = {
+          ...mergeErrors,
+          ...errorValidation,
+        };
+      }
     });
 
     setValidationMessages({

@@ -15,8 +15,16 @@ export const JenisIdentitasUtamaFields = ({ errMsg, onChange }) => {
         errMsg={errMsg.tempatKeluarAkta}
         onChange={onChange}
       />
-      <DateField label="Tanggal berlaku akta pendirian" />
-      <TextBoxField label="Alamat kantor" />
+      <DateField
+        label="Tanggal berlaku akta pendirian"
+        errMsg={errMsg.tglBerlakuAkta}
+        onChange={onChange}
+      />
+      <TextBoxField
+        label="Alamat kantor"
+        errMsg={errMsg.alamatKantor}
+        onChange={onChange}
+      />
     </>
   );
 };
