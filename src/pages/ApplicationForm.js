@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { BentukBadanUsahaFields } from "../components/BentukBadanUsahaFields";
+import { DataPerusahaanFields } from "../components/DataPerusahaanFields";
 import { JENIS_USAHA_LAINNYA } from "../constants";
+import { generateName, isAlphaNumeric } from "../Helper";
 
 export const ApplicationForm = () => {
   const [branchCode, setBranchCode] = useState("");
@@ -8,9 +10,54 @@ export const ApplicationForm = () => {
   const [badanUsahaLainnya, setBadanUsahaLainnya] = useState("");
   const [jenisBadanUsaha, setJenisBadanUsaha] = useState("swasta");
   const [validationMessages, setValidationMessages] = useState({
-    branchcode: "",
+    branchCode: "",
     badanUsahaLainnya: "",
+    namaPerusahaan: "",
+    tempatBerdiriPerusahaan: "",
   });
+  const [namaPerusahaan, setNamaPerusahaan] = useState("");
+  const [tempatBerdiriPerusahaan, setTempatBerdiriPerusahaan] = useState("");
+
+  const fieldsManager = [
+    {
+      name: generateName("Nama Lengkap Perusahaan"),
+      setState: (val) => setNamaPerusahaan(val),
+      validations: [
+        {
+          validate: function () {
+            if (namaPerusahaan.length <= 0) {
+              return { namaPerusahaan: "Nama Perusahaan Tidak Boleh Kosong" };
+            } else if (!isAlphaNumeric(namaPerusahaan)) {
+              return { namaPerusahaan: "Nama Perusahaan harus alphanumeric" };
+            }
+            return { namaPerusahaan: "" };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tempat Berdiri Perusahaan"),
+      setState: (val) => setTempatBerdiriPerusahaan(val),
+      validations: [
+        {
+          validate: function () {
+            if (tempatBerdiriPerusahaan.length <= 0) {
+              return {
+                tempatBerdiriPerusahaan:
+                  "Tempat Berdiri Perusahaan Tidak Boleh Kosong",
+              };
+            } else if (!isAlphaNumeric(tempatBerdiriPerusahaan)) {
+              return {
+                tempatBerdiriPerusahaan:
+                  "Tempat Berdiri Perusahaan harus alphanumeric",
+              };
+            }
+            return { tempatBerdiriPerusahaan: "" };
+          },
+        },
+      ],
+    },
+  ];
 
   const handleChange = (e) => {
     if (e.target.name === "branchcode") {
@@ -33,6 +80,12 @@ export const ApplicationForm = () => {
     if (e.target.name === "lainnya") {
       setBadanUsahaLainnya(e.target.value);
     }
+
+    fieldsManager.forEach((field) => {
+      if (e.target.name === field.name) {
+        field.setState(e.target.value);
+      }
+    });
   };
 
   const isAlphabet = (val) => {
@@ -42,9 +95,10 @@ export const ApplicationForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (metodePenyerahan === "kecabang") {
-      let branchCodeError = "";
+    let badanUsahaLainnyaError = "";
+    let branchCodeError = "";
 
+    if (metodePenyerahan === "kecabang") {
       if (branchCode.length <= 0) {
         branchCodeError = "Kode cabang tidak boleh kosong";
       } else if (!branchCode.toLowerCase().match(/^[0-9a-z]+$/)) {
@@ -52,25 +106,37 @@ export const ApplicationForm = () => {
       } else if (branchCode.length > 40) {
         branchCodeError = "Kode cabang maksimal 40 karakter";
       }
-
-      setValidationMessages({
-        ...validationMessages,
-        branchcode: branchCodeError,
-      });
     }
     if (jenisBadanUsaha === JENIS_USAHA_LAINNYA) {
-      let badanUsahaLainnyaError = "";
       if (badanUsahaLainnya.length <= 0) {
         badanUsahaLainnyaError = "Badan Usaha lainnya tidak boleh kosong";
       } else if (!isAlphabet(badanUsahaLainnya)) {
         badanUsahaLainnyaError = "Badan usaha lainnya harus alphabet";
       }
-
-      setValidationMessages({
-        ...validationMessages,
-        badanUsahaLainnya: badanUsahaLainnyaError,
-      });
     }
+
+    let mergeErrors = {
+      badanUsahaLainnya: badanUsahaLainnyaError,
+      branchCode: branchCodeError,
+    };
+
+    fieldsManager.forEach((field) => {
+      let errorValidation = {};
+      if (field.validations.length > 0) {
+        field.validations.forEach((validation) => {
+          errorValidation = validation.validate();
+        });
+      }
+      mergeErrors = {
+        ...mergeErrors,
+        ...errorValidation,
+      };
+    });
+
+    setValidationMessages({
+      ...validationMessages,
+      ...mergeErrors,
+    });
 
     console.log("Submittt...");
   };
@@ -117,8 +183,8 @@ export const ApplicationForm = () => {
           value={branchCode}
           onChange={handleChange}
         />
-        {validationMessages.branchcode.length > 0 && (
-          <span>{validationMessages.branchcode}</span>
+        {validationMessages.branchCode.length > 0 && (
+          <span>{validationMessages.branchCode}</span>
         )}
         <br />
         <BentukBadanUsahaFields
@@ -128,6 +194,15 @@ export const ApplicationForm = () => {
           errLainnya={validationMessages.badanUsahaLainnya}
         />
         <br />
+        <DataPerusahaanFields
+          onChange={handleChange}
+          errMsg={{
+            nama: validationMessages.namaPerusahaan,
+            tempat: validationMessages.tempatBerdiriPerusahaan,
+            tanggal: "",
+            bidang: "",
+          }}
+        />
         <input type="submit" value="Confirm" />
       </form>
     </>
