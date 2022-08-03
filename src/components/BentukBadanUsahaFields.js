@@ -1,12 +1,12 @@
 import { useState } from "react";
+import { JENIS_USAHA_LAINNYA, JENIS_USAHA_SWASTA } from "../constants";
 
-export const BentukBadanUsahaFields = () => {
-  const [jenisBadan, setJenisBadan] = useState("swasta");
-  const handleChange = (e) => {
-    if (e.target.name === "bentukbadanusaha") {
-      setJenisBadan(e.target.value);
-    }
-  };
+export const BentukBadanUsahaFields = ({
+  errLainnya,
+  jenisBadanUsaha,
+  badanUsahaLainnya,
+  handleChange,
+}) => {
   return (
     <>
       <fieldset>
@@ -14,26 +14,26 @@ export const BentukBadanUsahaFields = () => {
         <div>
           <input
             type="radio"
-            value="swasta"
+            value={JENIS_USAHA_SWASTA}
             id="radiobbu1"
             name="bentukbadanusaha"
-            checked={jenisBadan === "swasta" ? true : false}
+            checked={jenisBadanUsaha === JENIS_USAHA_SWASTA ? true : false}
             required
             onChange={handleChange}
           />
-          <label for="radiobbu1">Badan Usaha Swasta</label>
+          <label htmlFor="radiobbu1">Badan Usaha Swasta</label>
         </div>
         <div>
           <input
             type="radio"
-            value="lainnya"
+            value={JENIS_USAHA_LAINNYA}
             id="radiobbu2"
             name="bentukbadanusaha"
-            checked={jenisBadan === "lainnya" ? true : false}
+            checked={jenisBadanUsaha === JENIS_USAHA_LAINNYA ? true : false}
             required
             onChange={handleChange}
           />
-          <label for="radiobbu2">Lainnya</label>
+          <label htmlFor="radiobbu2">Lainnya</label>
         </div>
       </fieldset>
       <label htmlFor="lainnya">Lainnya</label>
@@ -41,11 +41,21 @@ export const BentukBadanUsahaFields = () => {
         id="lainnya"
         type="text"
         name="lainnya"
-        maxLength="40"
-        // value={branchCode}
+        maxLength="20"
+        value={badanUsahaLainnya}
         onChange={handleChange}
-        disabled={jenisBadan !== "lainnya" ? true : false}
+        disabled={jenisBadanUsaha !== "lainnya" ? true : false}
       />
+      <br />
+      {errLainnya.length > 0 && <span>{errLainnya}</span>}
+      <br />
     </>
   );
+};
+
+BentukBadanUsahaFields.defaultProps = {
+  errLainnya: "",
+  jenisBadanUsaha: "swasta",
+  badanUsahaLainnya: "",
+  handleChange: () => {},
 };

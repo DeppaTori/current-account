@@ -17,17 +17,21 @@ describe("BentukBadanUsahaField", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders non disable lainnya when radio is clicked", async () => {
-    let badanUsaha;
-    render(<BentukBadanUsahaFields />);
-    badanUsaha = screen.getByRole("radio", {
-      name: "Lainnya",
-    });
-    expect(screen.getByRole("textbox", { name: /lainnya/i })).toBeDisabled();
-    user.click(badanUsaha);
+  // it("renders non disable lainnya when radio is clicked", async () => {
+  //   let badanUsaha;
+  //   render(<BentukBadanUsahaFields />);
+  //   badanUsaha = screen.getByRole("radio", {
+  //     name: "Lainnya",
+  //   });
+  //   expect(screen.getByRole("textbox", { name: /lainnya/i })).toBeDisabled();
+  //   user.click(badanUsaha);
 
-    expect(
-      screen.getByRole("textbox", { name: /lainnya/i })
-    ).not.toBeDisabled();
+  //   expect(
+  //     screen.getByRole("textbox", { name: /lainnya/i })
+  //   ).not.toBeDisabled();
+  // });
+  it("renders error lainnya", () => {
+    render(<BentukBadanUsahaFields errLainnya="Error lainnya" />);
+    expect(screen.getByText("Error lainnya")).toBeInTheDocument();
   });
 });

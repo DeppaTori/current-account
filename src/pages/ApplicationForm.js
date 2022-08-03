@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { BentukBadanUsahaFields } from "../components/BentukBadanUsahaFields";
+import { JENIS_USAHA_LAINNYA } from "../constants";
 
 export const ApplicationForm = () => {
   const [branchCode, setBranchCode] = useState("");
   const [metodePenyerahan, setMetodePenyerahan] = useState("unggahdokumen");
+  const [badanUsahaLainnya, setBadanUsahaLainnya] = useState("");
+  const [jenisBadanUsaha, setJenisBadanUsaha] = useState("swasta");
   const [validationMessages, setValidationMessages] = useState({
     branchcode: "",
+    badanUsahaLainnya: "",
   });
 
   const handleChange = (e) => {
@@ -19,6 +23,20 @@ export const ApplicationForm = () => {
       });
       setMetodePenyerahan((old) => e.target.value);
     }
+    if (e.target.name === "bentukbadanusaha") {
+      setJenisBadanUsaha(e.target.value);
+      setValidationMessages({
+        ...validationMessages,
+        badanUsahaLainnya: "",
+      });
+    }
+    if (e.target.name === "lainnya") {
+      setBadanUsahaLainnya(e.target.value);
+    }
+  };
+
+  const isAlphabet = (val) => {
+    return val.toLowerCase().match(/^[a-z]+$/);
   };
 
   const handleSubmit = (e) => {
@@ -26,6 +44,7 @@ export const ApplicationForm = () => {
 
     if (metodePenyerahan === "kecabang") {
       let branchCodeError = "";
+
       if (branchCode.length <= 0) {
         branchCodeError = "Kode cabang tidak boleh kosong";
       } else if (!branchCode.toLowerCase().match(/^[0-9a-z]+$/)) {
@@ -37,6 +56,19 @@ export const ApplicationForm = () => {
       setValidationMessages({
         ...validationMessages,
         branchcode: branchCodeError,
+      });
+    }
+    if (jenisBadanUsaha === JENIS_USAHA_LAINNYA) {
+      let badanUsahaLainnyaError = "";
+      if (badanUsahaLainnya.length <= 0) {
+        badanUsahaLainnyaError = "Badan Usaha lainnya tidak boleh kosong";
+      } else if (!isAlphabet(badanUsahaLainnya)) {
+        badanUsahaLainnyaError = "Badan usaha lainnya harus alphabet";
+      }
+
+      setValidationMessages({
+        ...validationMessages,
+        badanUsahaLainnya: badanUsahaLainnyaError,
       });
     }
 
@@ -89,7 +121,12 @@ export const ApplicationForm = () => {
           <span>{validationMessages.branchcode}</span>
         )}
         <br />
-        <BentukBadanUsahaFields />
+        <BentukBadanUsahaFields
+          jenisBadanUsaha={jenisBadanUsaha}
+          badanUsahaLainnya={badanUsahaLainnya}
+          handleChange={handleChange}
+          errLainnya={validationMessages.badanUsahaLainnya}
+        />
         <br />
         <input type="submit" value="Confirm" />
       </form>
