@@ -9,11 +9,13 @@ export const JenisIdentitasUtamaFields = ({ errMsg, onChange }) => {
         label="Nomor Akta Pendirian Perusahaan"
         errMsg={errMsg.nomor}
         onChange={onChange}
+        maxLength={40}
       />
       <TextBoxField
         label="Tempat dikeluarkan Akta Pendirian"
         errMsg={errMsg.tempatKeluarAkta}
         onChange={onChange}
+        maxLength={40}
       />
       <DateField
         label="Tanggal berlaku akta pendirian"
@@ -24,6 +26,7 @@ export const JenisIdentitasUtamaFields = ({ errMsg, onChange }) => {
         label="Alamat kantor"
         errMsg={errMsg.alamatKantor}
         onChange={onChange}
+        maxLength={100}
       />
     </>
   );
