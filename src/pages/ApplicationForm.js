@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { BentukBadanUsahaFields } from "../components/BentukBadanUsahaFields";
 import { DataPerusahaanFields } from "../components/DataPerusahaanFields";
+import { JenisIdentitasUtamaFields } from "../components/JenisIdentitasUtamaFields";
 import { JENIS_USAHA_LAINNYA } from "../constants";
-import { generateName, isAlphaNumeric } from "../Helper";
+import {
+  generateFieldMdtryAlNumJenisIdentitasUtama,
+  generateName,
+  isAlphaNumeric,
+} from "../Helper";
 
 export const ApplicationForm = () => {
   const [branchCode, setBranchCode] = useState("");
@@ -16,11 +21,19 @@ export const ApplicationForm = () => {
     tempatBerdiriPerusahaan: "",
     tanggalBerdiriPerusahaan: "",
     bidangUsahaPerusahaan: "",
+    jenisIdentitasUtama: {
+      nomor: "",
+      tempatKeluarAkta: "",
+    },
   });
   const [namaPerusahaan, setNamaPerusahaan] = useState("");
   const [tempatBerdiriPerusahaan, setTempatBerdiriPerusahaan] = useState("");
   const [tanggalBerdiriPerusahaan, setTanggalBerdiriPerusahaan] = useState("");
   const [bidangUsahaPerusahaan, setBidangUsahaPerusahaan] = useState("");
+  const [jenisIdentitasUtama, setJenisIdentitasUtama] = useState({
+    nomor: "",
+    tempatKeluarAkta: "",
+  });
 
   const fieldsManager = [
     {
@@ -95,6 +108,41 @@ export const ApplicationForm = () => {
         },
       ],
     },
+    {
+      name: generateName("Nomor Akta Pendirian Perusahaan"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          nomor: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            if (jenisIdentitasUtama.nomor.length <= 0) {
+              return {
+                jenisIdentitasUtama: {
+                  ...validationMessages.jenisIdentitasUtama,
+                  nomor: "Nomor Akta Pendirian Perusahaan Tidak Boleh Kosong",
+                },
+              };
+            } else if (!isAlphaNumeric(jenisIdentitasUtama.nomor)) {
+              return {
+                jenisIdentitasUtama: {
+                  ...validationMessages.jenisIdentitasUtama,
+                  nomor: "Nomor Akta Pendirian Perusahaan harus alphanumeric",
+                },
+              };
+            }
+            return {
+              jenisIdentitasUtama: {
+                ...validationMessages.jenisIdentitasUtama,
+                nomor: "",
+              },
+            };
+          },
+        },
+      ],
+    },
   ];
 
   const handleChange = (e) => {
@@ -165,6 +213,7 @@ export const ApplicationForm = () => {
           errorValidation = validation.validate();
         });
       }
+
       mergeErrors = {
         ...mergeErrors,
         ...errorValidation,
@@ -240,6 +289,10 @@ export const ApplicationForm = () => {
             tanggal: validationMessages.tanggalBerdiriPerusahaan,
             bidang: validationMessages.bidangUsahaPerusahaan,
           }}
+        />
+        <JenisIdentitasUtamaFields
+          onChange={handleChange}
+          errMsg={validationMessages.jenisIdentitasUtama}
         />
         <input type="submit" value="Confirm" />
       </form>

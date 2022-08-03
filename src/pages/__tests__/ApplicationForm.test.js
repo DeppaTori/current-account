@@ -98,4 +98,19 @@ describe("ApplicationForm", () => {
     expectTextInTheDocument("Tanggal Berdiri Perusahaan Tidak Boleh Kosong");
     expectTextInTheDocument("Bidang Usaha Perusahaan Tidak Boleh Kosong");
   });
+
+  it("renders data jenis identitas utama errors if the fields are empty", () => {
+    let submitBtn;
+    setupRender();
+    submitBtn = screen.getByRole("button", { name: /confirm/i });
+    user.click(submitBtn);
+    expectTextInTheDocument(
+      "Nomor Akta Pendirian Perusahaan Tidak Boleh Kosong"
+    );
+    // expectTextInTheDocument("Tempat dikeluarkan identitas Tidak Boleh Kosong");
+    // expectTextInTheDocument(
+    //   "Tanggal berlaku akta pendirian Tidak Boleh Kosong"
+    // );
+    // expectTextInTheDocument("Alamat Kantor Tidak Boleh Kosong");
+  });
 });
