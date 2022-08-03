@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { ApplicationForm } from "../ApplicationForm";
 import user from "@testing-library/user-event";
+import { expectTextInTheDocument } from "../../TestHelper";
 
 describe("ApplicationForm", () => {
   const setupRender = () => {
@@ -86,5 +87,15 @@ describe("ApplicationForm", () => {
       submitBtn,
       "Badan usaha lainnya harus alphabet"
     );
+  });
+  it("renders data perusahaan error if the fields are empty", () => {
+    let submitBtn;
+    setupRender();
+    submitBtn = screen.getByRole("button", { name: /confirm/i });
+    user.click(submitBtn);
+    expectTextInTheDocument("Tempat Berdiri Perusahaan Tidak Boleh Kosong");
+    expectTextInTheDocument("Nama Perusahaan Tidak Boleh Kosong");
+    expectTextInTheDocument("Tanggal Berdiri Perusahaan Tidak Boleh Kosong");
+    expectTextInTheDocument("Bidang Usaha Perusahaan Tidak Boleh Kosong");
   });
 });

@@ -1,3 +1,4 @@
+import { generateName } from "../Helper";
 import { TextBoxField } from "./TextBoxField";
 
 export const DataPerusahaanFields = ({ errMsg, onChange }) => {
@@ -22,21 +23,26 @@ export const DataPerusahaanFields = ({ errMsg, onChange }) => {
       <input
         id="tanggal"
         type="date"
-        name="tanggal"
-        // value={badanUsahaLainnya}
-        // onChange={handleChange}
+        name={generateName("Tanggal Berdiri Perusahaan")}
+        onChange={onChange}
       />
       <br />
       {errMsg.tanggal.length > 0 && <span>{errMsg.tanggal}</span>}
       <br />
       <label for="bidang">Bidang Usaha</label>
 
-      <select name="bidang" id="bidang">
+      <select
+        name={generateName("Bidang Usaha")}
+        id="bidang"
+        onChange={onChange}
+      >
+        <option value="">---Bidang Usaha---</option>
         <option value="property">Property</option>
         <option value="pergudangan">Pergudangan</option>
       </select>
       <br />
       {errMsg.bidang.length > 0 && <span>{errMsg.bidang}</span>}
+      <br />
     </>
   );
 };

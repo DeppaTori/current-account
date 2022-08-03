@@ -14,9 +14,13 @@ export const ApplicationForm = () => {
     badanUsahaLainnya: "",
     namaPerusahaan: "",
     tempatBerdiriPerusahaan: "",
+    tanggalBerdiriPerusahaan: "",
+    bidangUsahaPerusahaan: "",
   });
   const [namaPerusahaan, setNamaPerusahaan] = useState("");
   const [tempatBerdiriPerusahaan, setTempatBerdiriPerusahaan] = useState("");
+  const [tanggalBerdiriPerusahaan, setTanggalBerdiriPerusahaan] = useState("");
+  const [bidangUsahaPerusahaan, setBidangUsahaPerusahaan] = useState("");
 
   const fieldsManager = [
     {
@@ -53,6 +57,40 @@ export const ApplicationForm = () => {
               };
             }
             return { tempatBerdiriPerusahaan: "" };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tanggal Berdiri Perusahaan"),
+      setState: (val) => setTanggalBerdiriPerusahaan(val),
+      validations: [
+        {
+          validate: function () {
+            if (tanggalBerdiriPerusahaan.length <= 0) {
+              return {
+                tanggalBerdiriPerusahaan:
+                  "Tanggal Berdiri Perusahaan Tidak Boleh Kosong",
+              };
+            }
+            return { tanggalBerdiriPerusahaan: "" };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Bidang Usaha"),
+      setState: (val) => setBidangUsahaPerusahaan(val),
+      validations: [
+        {
+          validate: function () {
+            if (bidangUsahaPerusahaan.length <= 0) {
+              return {
+                bidangUsahaPerusahaan:
+                  "Bidang Usaha Perusahaan Tidak Boleh Kosong",
+              };
+            }
+            return { bidangUsahaPerusahaan: "" };
           },
         },
       ],
@@ -199,8 +237,8 @@ export const ApplicationForm = () => {
           errMsg={{
             nama: validationMessages.namaPerusahaan,
             tempat: validationMessages.tempatBerdiriPerusahaan,
-            tanggal: "",
-            bidang: "",
+            tanggal: validationMessages.tanggalBerdiriPerusahaan,
+            bidang: validationMessages.bidangUsahaPerusahaan,
           }}
         />
         <input type="submit" value="Confirm" />
