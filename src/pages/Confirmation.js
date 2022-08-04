@@ -21,6 +21,7 @@ export const Confirmation = () => {
     alamatElektronik,
     fasilitasPembayaranTagihan,
     konfirmasiTransaksi,
+    persetujuan,
   } = confirmationLabels;
   const pendapatanPerBulanLabelValues = generateLabelValues(
     pendapatanRataPerBulan,
@@ -68,6 +69,11 @@ export const Confirmation = () => {
   const konfirmasiTransaksiLabelValues = generateLabelValues(
     konfirmasiTransaksi,
     confirmationData.konfirmasiTransaksi
+  );
+
+  const persetujuanLabelValues = generateLabelValues(
+    persetujuan,
+    confirmationData.persetujuan
   );
 
   return (
@@ -122,6 +128,12 @@ export const Confirmation = () => {
         title="Konfirmasi Transaksi"
         fields={konfirmasiTransaksiLabelValues}
         prefixId="KTID_"
+      />
+
+      <GenericFields
+        title="Persetujuan"
+        fields={persetujuanLabelValues}
+        prefixId="PSJID_"
       />
       <button>Submit</button>
     </>

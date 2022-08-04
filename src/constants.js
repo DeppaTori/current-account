@@ -140,6 +140,10 @@ export const confirmationData = {
     Jabatan2: "Chief Admin",
     NoKTP2: "32434433",
   },
+  persetujuan: {
+    KetentuandanSyaratkhususrekeningGiro: "contoh ketentuan",
+    SyaratKhususJoinAccount: "contoh syarat",
+  },
 };
 
 export const confirmationLabels = {
@@ -209,5 +213,9 @@ export const confirmationLabels = {
     "No. Telepon 2",
     "Jabatan 2",
     "No. KTP 2",
+  ],
+  persetujuan: [
+    "Ketentuan dan Syarat khusus rekening Giro",
+    "Syarat Khusus Join Account",
   ],
 };

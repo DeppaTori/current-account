@@ -123,6 +123,15 @@ describe("Confirmation", () => {
     }
   });
 
+  it("renders Persetujuan section", () => {
+    render(<Confirmation />);
+    expectTextInTheDocument("Persetujuan");
+    for (const property in confirmationData.persetujuan) {
+      expectTestIdInTheDocument("PSJID_" + property);
+      expectTextInTheDocument(confirmationData.persetujuan[property]);
+    }
+  });
+
   it("renders headings", () => {
     render(<Confirmation />);
     expect(
