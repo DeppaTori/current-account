@@ -1,7 +1,16 @@
 import { useState } from "react";
+import { AlamatElektronikFields } from "../components/AlamatElektronikFields";
 import { BentukBadanUsahaFields } from "../components/BentukBadanUsahaFields";
 import { DataPerusahaanFields } from "../components/DataPerusahaanFields";
+import { InformasiLainnyaFields } from "../components/InformasiLainnyaFields";
 import { JenisIdentitasUtamaFields } from "../components/JenisIdentitasUtamaFields";
+import { KonfirmasiTransaksiFields } from "../components/KonfirmasiTransaksiFields";
+import { LaporanKeuanganTahunanFields } from "../components/LaporanKeuanganTahunanFields";
+import { MetodePenyerahanDokumenFields } from "../components/MetodePenyerahanDokumenFields";
+import { PendapatanRataRataFields } from "../components/PendapatanRaraRataFields";
+import { PersetujuanFields } from "../components/PersetujuanFields";
+import { SusunanManajemenFields } from "../components/SusunanManajemenFields";
+import { UnggahDokumenFields } from "../components/UnggahDokumenFields";
 import { JENIS_USAHA_LAINNYA } from "../constants";
 import {
   generateName,
@@ -339,19 +348,7 @@ export const ApplicationForm = () => {
           </div>
         </fieldset>
         <br />
-        <label htmlFor="branchcode">Branch Code</label>
-        <input
-          id="branchcode"
-          type="text"
-          name="branchcode"
-          maxLength="40"
-          value={branchCode}
-          onChange={handleChange}
-        />
-        {validationMessages.branchCode.length > 0 && (
-          <span>{validationMessages.branchCode}</span>
-        )}
-        <br />
+
         <BentukBadanUsahaFields
           jenisBadanUsaha={jenisBadanUsaha}
           badanUsahaLainnya={badanUsahaLainnya}
@@ -372,6 +369,28 @@ export const ApplicationForm = () => {
           onChange={handleChange}
           errMsg={validationMessages.jenisIdentitasUtama}
         />
+        <InformasiLainnyaFields />
+        <PendapatanRataRataFields />
+        <SusunanManajemenFields />
+        <LaporanKeuanganTahunanFields />
+        <AlamatElektronikFields />
+        <KonfirmasiTransaksiFields />
+        <PersetujuanFields />
+        <UnggahDokumenFields />
+        <MetodePenyerahanDokumenFields />
+        <label htmlFor="branchcode">Branch Code</label>
+        <input
+          id="branchcode"
+          type="text"
+          name="branchcode"
+          maxLength="40"
+          value={branchCode}
+          onChange={handleChange}
+        />
+        {validationMessages.branchCode.length > 0 && (
+          <span>{validationMessages.branchCode}</span>
+        )}
+        <br />
         <input type="submit" value="Confirm" />
       </form>
     </>
