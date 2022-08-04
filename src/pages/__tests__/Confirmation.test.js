@@ -132,6 +132,15 @@ describe("Confirmation", () => {
     }
   });
 
+  it("renders Unggah Dokumen section", () => {
+    render(<Confirmation />);
+    expectTextInTheDocument("Unggah Dokumen");
+    for (const property in confirmationData.unggahDokumen) {
+      expectTestIdInTheDocument("UDID_" + property);
+      expectTextInTheDocument(confirmationData.unggahDokumen[property]);
+    }
+  });
+
   it("renders headings", () => {
     render(<Confirmation />);
     expect(

@@ -144,6 +144,11 @@ export const confirmationData = {
     KetentuandanSyaratkhususrekeningGiro: "contoh ketentuan",
     SyaratKhususJoinAccount: "contoh syarat",
   },
+  unggahDokumen: {
+    No: "111999",
+    NamaDokumenHarusUpload: "sss.jpg",
+    NamaDokumenBerhasilUpload: "ssss.jpg",
+  },
 };
 
 export const confirmationLabels = {
@@ -217,5 +222,10 @@ export const confirmationLabels = {
   persetujuan: [
     "Ketentuan dan Syarat khusus rekening Giro",
     "Syarat Khusus Join Account",
+  ],
+  unggahDokumen: [
+    "No",
+    "Nama Dokumen Harus Upload",
+    "Nama Dokumen Berhasil Upload",
   ],
 };
