@@ -15,8 +15,10 @@ import { JENIS_USAHA_LAINNYA } from "../constants";
 import {
   generateName,
   isAlphaNumeric,
+  validateAlphabet,
   validateEmpty,
   validateEmptyAndAlphaNumeric,
+  validateEmptyAndNumeric,
 } from "../Helper";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
@@ -43,6 +45,19 @@ export const ApplicationForm = () => {
       ketentuan: "",
       syarat: "",
     },
+    konfirmasiTransaksi: {
+      nama: "",
+      nomor: "",
+      jabatan: "",
+      nomorKTP: "",
+    },
+    alamatElektronik: {
+      jenisRekening: "",
+      jenisValuta: "",
+      email: "",
+      lainlain: "",
+      others: "",
+    },
   });
   const [namaPerusahaan, setNamaPerusahaan] = useState("");
   const [tempatBerdiriPerusahaan, setTempatBerdiriPerusahaan] = useState("");
@@ -60,6 +75,22 @@ export const ApplicationForm = () => {
     syaratA: false,
     syaratB: false,
   });
+
+  const [konfirmasiTransaksi, setKonfirmasiTransaksi] = useState({
+    nama: "",
+    nomor: "",
+    jabatan: "",
+    nomorKTP: "",
+  });
+
+  const [alamatElektronik, setAlamatElektronik] = useState({
+    jenisRekening: "giro_rupiah",
+    jenisValuta: "idr",
+    email: "",
+    lainlain: "",
+    others: "",
+  });
+
   let navigate = useNavigate();
 
   const fieldsManager = [
@@ -231,6 +262,171 @@ export const ApplicationForm = () => {
         },
       ],
     },
+    {
+      name: "KTF_" + generateName("Nama Pejabat yang dihubungi"),
+      setState: (val) =>
+        setKonfirmasiTransaksi({
+          ...konfirmasiTransaksi,
+          nama: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndAlphaNumeric(
+              konfirmasiTransaksi.nama,
+              "Nama Pejabat yang dihubungi"
+            );
+
+            return {
+              konfirmasiTransaksi: {
+                nama: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "KTF_" + generateName("No. Telepon"),
+      setState: (val) =>
+        setKonfirmasiTransaksi({
+          ...konfirmasiTransaksi,
+          nomor: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndNumeric(
+              konfirmasiTransaksi.nomor,
+              "No. Telepon"
+            );
+
+            return {
+              konfirmasiTransaksi: {
+                nomor: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "KTF_" + generateName("Jabatan"),
+      setState: (val) =>
+        setKonfirmasiTransaksi({
+          ...konfirmasiTransaksi,
+          jabatan: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndAlphaNumeric(
+              konfirmasiTransaksi.jabatan,
+              "Jabatan"
+            );
+
+            return {
+              konfirmasiTransaksi: {
+                jabatan: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "KTF_" + generateName("No. KTP"),
+      setState: (val) =>
+        setKonfirmasiTransaksi({
+          ...konfirmasiTransaksi,
+          nomorKTP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndNumeric(
+              konfirmasiTransaksi.nomorKTP,
+              "No. KTP"
+            );
+
+            return {
+              konfirmasiTransaksi: {
+                nomorKTP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "AE_" + generateName("Email"),
+      setState: (val) =>
+        setAlamatElektronik({
+          ...alamatElektronik,
+          email: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndAlphaNumeric(
+              alamatElektronik.email,
+              "Email"
+            );
+
+            return {
+              alamatElektronik: {
+                email: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "AE_" + generateName("Others"),
+      setState: (val) =>
+        setAlamatElektronik({
+          ...alamatElektronik,
+          others: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateAlphabet(alamatElektronik.others, "Others");
+
+            return {
+              alamatElektronik: {
+                others: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "AE_" + generateName("Lain-Lain"),
+      setState: (val) =>
+        setAlamatElektronik({
+          ...alamatElektronik,
+          lainlain: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateAlphabet(
+              alamatElektronik.lainlain,
+              "Lain-Lain"
+            );
+
+            return {
+              alamatElektronik: {
+                lainlain: result,
+              },
+            };
+          },
+        },
+      ],
+    },
   ];
 
   const handleChange = (e) => {
@@ -253,6 +449,40 @@ export const ApplicationForm = () => {
     }
     if (e.target.name === "lainnya") {
       setBadanUsahaLainnya(e.target.value);
+    }
+
+    if (e.target.name === "jenis_rekening") {
+      setValidationMessages({
+        ...validationMessages,
+        alamatElektronik: {
+          ...validationMessages.alamatElektronik,
+          jenisRekening: "",
+        },
+      });
+      setAlamatElektronik({
+        ...alamatElektronik,
+        jenisRekening: e.target.value,
+        jenisValuta:
+          e.target.value === "giro_rupiah"
+            ? "idr"
+            : e.target.value === "giro_valas"
+            ? "usd"
+            : alamatElektronik.jenisValuta,
+      });
+    }
+
+    if (e.target.name === "jenis_valuta") {
+      setValidationMessages({
+        ...validationMessages,
+        alamatElektronik: {
+          ...validationMessages.alamatElektronik,
+          jenisValuta: "",
+        },
+      });
+      setAlamatElektronik({
+        ...alamatElektronik,
+        jenisValuta: e.target.value,
+      });
     }
 
     // for checkbox
@@ -344,6 +574,22 @@ export const ApplicationForm = () => {
             ...errorValidation.jenisIdentitasUtama,
           },
         };
+      } else if ("konfirmasiTransaksi" in errorValidation) {
+        mergeErrors = {
+          ...mergeErrors,
+          konfirmasiTransaksi: {
+            ...mergeErrors.konfirmasiTransaksi,
+            ...errorValidation.konfirmasiTransaksi,
+          },
+        };
+      } else if ("alamatElektronik" in errorValidation) {
+        mergeErrors = {
+          ...mergeErrors,
+          alamatElektronik: {
+            ...mergeErrors.alamatElektronik,
+            ...errorValidation.alamatElektronik,
+          },
+        };
       } else {
         mergeErrors = {
           ...mergeErrors,
@@ -423,8 +669,15 @@ export const ApplicationForm = () => {
           <PendapatanRataRataFields />
           <SusunanManajemenFields />
           <LaporanKeuanganTahunanFields />
-          <AlamatElektronikFields />
-          <KonfirmasiTransaksiFields />
+          <AlamatElektronikFields
+            values={alamatElektronik}
+            onChange={handleChange}
+            errMsg={validationMessages.alamatElektronik}
+          />
+          <KonfirmasiTransaksiFields
+            onChange={handleChange}
+            errMsg={validationMessages.konfirmasiTransaksi}
+          />
           <PersetujuanFields
             onChange={handleChange}
             errMsg={validationMessages.persetujuan}

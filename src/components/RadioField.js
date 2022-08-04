@@ -1,8 +1,16 @@
 import { generateName } from "../Helper";
 
-export const RadioField = ({ label, value, errMsg, onChange, checked }) => {
-  const name = generateName(label);
-  const id = name.concat("_id");
+export const RadioField = ({
+  label,
+  value,
+  errMsg,
+  onChange,
+  checked,
+  defaultName = null,
+  disabled = false,
+}) => {
+  const name = defaultName ? defaultName : generateName(label);
+  const id = generateName(label).concat("_id");
   return (
     <>
       <input
@@ -12,12 +20,11 @@ export const RadioField = ({ label, value, errMsg, onChange, checked }) => {
         name={name}
         checked={checked}
         onChange={onChange}
+        disabled={disabled}
       />
       <label htmlFor={id}>{label}</label>
 
-      <br />
       {errMsg.length > 0 && <span>{errMsg}</span>}
-      <br />
     </>
   );
 };

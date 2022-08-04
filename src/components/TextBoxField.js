@@ -7,8 +7,10 @@ export const TextBoxField = ({
   errMsg,
   onChange,
   required = true,
+  prefixName = "",
+  disabled = false,
 }) => {
-  const name = generateName(label);
+  const name = prefixName + "" + generateName(label);
   const id = name.concat("_id");
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
@@ -25,6 +27,7 @@ export const TextBoxField = ({
           maxLength={maxLength}
           value={value}
           onChange={onChange}
+          disabled={disabled}
         />
         <br />
         {errMsg.length > 0 && <span className="error-text">{errMsg}</span>}

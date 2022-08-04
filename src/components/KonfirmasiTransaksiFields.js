@@ -1,32 +1,37 @@
 import { TextBoxField } from "./TextBoxField";
 
-export const KonfirmasiTransaksiFields = () => {
+export const KonfirmasiTransaksiFields = ({ onChange, errMsg }) => {
+  const prefixName = "KTF_";
   return (
     <>
       <h4>Konfirmasi Transaksi</h4>
       <TextBoxField
         label="Nama Pejabat yang dihubungi"
-        // errMsg={errMsg.nomor}
-        // onChange={onChange}
+        errMsg={errMsg.nama}
+        onChange={onChange}
         maxLength={40}
+        prefixName={prefixName}
       />
       <TextBoxField
         label="No. Telepon"
-        // errMsg={errMsg.nomor}
-        // onChange={onChange}
+        errMsg={errMsg.nomor}
+        onChange={onChange}
         maxLength={20}
+        prefixName={prefixName}
       />
       <TextBoxField
         label="Jabatan"
-        // errMsg={errMsg.nomor}
-        // onChange={onChange}
+        errMsg={errMsg.jabatan}
+        onChange={onChange}
         maxLength={40}
+        prefixName={prefixName}
       />
       <TextBoxField
         label="No. KTP"
-        // errMsg={errMsg.nomor}
-        // onChange={onChange}
+        errMsg={errMsg.nomorKTP}
+        onChange={onChange}
         maxLength={20}
+        prefixName={prefixName}
       />
     </>
   );
