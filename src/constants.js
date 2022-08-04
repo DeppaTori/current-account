@@ -66,4 +66,17 @@ export const confirmationData = {
     bidang: "Bidang Informasi Lainnya",
     alamat: "Alamat Informasi Lainnya",
   },
+  pendapatanRataPerBulan: {
+    PendapatanOperasional: "Rp. 100.000",
+    PendapatanNonOperasional: "Rp. 200.000",
+    TujuanBerhubungandenganBank: "Rp 300.000",
+  },
+};
+
+export const confirmationLabels = {
+  pendapatanRataPerBulan: [
+    "Pendapatan Operasional",
+    "Pendapatan Non Operasional",
+    "Tujuan Berhubungan dengan Bank",
+  ],
 };

@@ -22,3 +22,17 @@ export const validateEmpty = (state, label) => {
   }
   return msg;
 };
+
+export const generateLabelValues = (labels, values) => {
+  let labelValues = [];
+  labels.forEach((label) => {
+    labelValues = [
+      ...labelValues,
+      {
+        label: label,
+        value: values[label.replace(/ /g, "")],
+      },
+    ];
+  });
+  return labelValues;
+};
