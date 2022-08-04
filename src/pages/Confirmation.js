@@ -10,10 +10,14 @@ export const Confirmation = () => {
   const { header, dataPerusahaan, jenisIdentitasUtama, informasiLainnya } =
     confirmationData;
 
-  const { pendapatanRataPerBulan } = confirmationLabels;
+  const { pendapatanRataPerBulan, rekeningSaatIni } = confirmationLabels;
   const pendapatanPerBulanLabelValues = generateLabelValues(
     pendapatanRataPerBulan,
     confirmationData.pendapatanRataPerBulan
+  );
+  const rekeningSaatIniLabelValues = generateLabelValues(
+    rekeningSaatIni,
+    confirmationData.rekeningSaatIni
   );
 
   return (
@@ -26,6 +30,10 @@ export const Confirmation = () => {
       <GenericFields
         title="Pendapatan Rata-Rata per bulan"
         fields={pendapatanPerBulanLabelValues}
+      />
+      <GenericFields
+        title="Rekening yang dimiliki saat ini (Bank/Inst. Keuangan Lainnya)"
+        fields={rekeningSaatIniLabelValues}
       />
       <button>Submit</button>
     </>

@@ -71,6 +71,14 @@ export const confirmationData = {
     PendapatanNonOperasional: "Rp. 200.000",
     TujuanBerhubungandenganBank: "Rp 300.000",
   },
+  rekeningSaatIni: {
+    Bank1: "BCA",
+    Produk1: "Simpanan",
+    NoRekening1: "122033233",
+    Bank2: "BNI",
+    Produk2: "Produk A",
+    NoRekening2: "235235333",
+  },
 };
 
 export const confirmationLabels = {
@@ -78,5 +86,13 @@ export const confirmationLabels = {
     "Pendapatan Operasional",
     "Pendapatan Non Operasional",
     "Tujuan Berhubungan dengan Bank",
+  ],
+  rekeningSaatIni: [
+    "Bank 1",
+    "Produk 1",
+    "No. Rekening 1",
+    "Bank 2",
+    "Produk 2",
+    "No. Rekening 2",
   ],
 };

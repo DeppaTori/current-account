@@ -23,6 +23,19 @@ describe("Confirmation", () => {
       );
     }
   });
+  it("renders rekening yang dimiliki saat ini section", () => {
+    const { rekeningSaatIni } = confirmationLabels;
+
+    render(<Confirmation />);
+    expectTextInTheDocument(
+      "Rekening yang dimiliki saat ini (Bank/Inst. Keuangan Lainnya)"
+    );
+    rekeningSaatIni.forEach((item) => expectTextInTheDocument(item + " :"));
+    for (const property in confirmationData.rekeningSaatIni) {
+      expectTextInTheDocument(confirmationData.rekeningSaatIni[property]);
+    }
+  });
+
   it("renders headings", () => {
     render(<Confirmation />);
     expect(

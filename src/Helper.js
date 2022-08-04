@@ -30,7 +30,7 @@ export const generateLabelValues = (labels, values) => {
       ...labelValues,
       {
         label: label,
-        value: values[label.replace(/ /g, "")],
+        value: values[label.replace(/ /g, "").replace(/\./g, "")],
       },
     ];
   });
