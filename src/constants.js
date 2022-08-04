@@ -129,6 +129,17 @@ export const confirmationData = {
     FasilitasLainnya: "Internet Banking",
     NumberFasilitasLainnya: "21232223",
   },
+  konfirmasiTransaksi: {
+    NamaPejabatyangdihubungi: "Sir Lancer",
+    NoTelepon: "123333",
+    Jabatan: "Admin",
+    NoKTP: "33311111",
+    KodeKonfirmasi: "045",
+    NamaPejabatyangdihubungi2: "Sir AA",
+    NoTelepon2: "124444",
+    Jabatan2: "Chief Admin",
+    NoKTP2: "32434433",
+  },
 };
 
 export const confirmationLabels = {
@@ -187,5 +198,16 @@ export const confirmationLabels = {
     "Number",
     "Fasilitas Lainnya",
     "Number Fasilitas Lainnya",
+  ],
+  konfirmasiTransaksi: [
+    "Nama Pejabat yang dihubungi",
+    "No. Telepon",
+    "Jabatan",
+    "No. KTP",
+    "Kode Konfirmasi",
+    "Nama Pejabat yang dihubungi 2",
+    "No. Telepon 2",
+    "Jabatan 2",
+    "No. KTP 2",
   ],
 };

@@ -114,10 +114,19 @@ describe("Confirmation", () => {
     }
   });
 
+  it("renders Konfirmasi Transaksi section", () => {
+    render(<Confirmation />);
+    expectTextInTheDocument("Konfirmasi Transaksi");
+    for (const property in confirmationData.konfirmasiTransaksi) {
+      expectTestIdInTheDocument("KTID_" + property);
+      expectTextInTheDocument(confirmationData.konfirmasiTransaksi[property]);
+    }
+  });
+
   it("renders headings", () => {
     render(<Confirmation />);
     expect(
-      screen.getByRole("heading", { name: /konfirmasi/i })
+      screen.getByRole("heading", { name: "Konfirmasi" })
     ).toBeInTheDocument();
   });
 });
