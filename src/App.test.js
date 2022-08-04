@@ -16,4 +16,24 @@ describe("App", () => {
     );
     expect(screen.getByText("Form")).toBeInTheDocument();
   });
+
+  it("renders confirmation page", async () => {
+    render(
+      <MemoryRouter initialEntries={["/confirmation"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByRole("button", { name: "Submit" })).toBeInTheDocument();
+  });
+
+  it("renders pending task page", async () => {
+    render(
+      <MemoryRouter initialEntries={["/pending-task"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByRole("button", { name: "Approve" })).toBeInTheDocument();
+  });
 });
