@@ -5,10 +5,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { dataPendingTask } from "../constants";
 
 export const PendingTask = () => {
   const [open, setOpen] = useState(false);
   const [openReject, setOpenReject] = useState(false);
+
+  const dummyData = dataPendingTask;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -76,6 +79,21 @@ export const PendingTask = () => {
 
   return (
     <>
+      <h3>Pending Task Bank User</h3>
+      <div>
+        Ticket Number : <span>{dummyData.ticketNumber}</span>
+        <br />
+        Created Date : <span>{dummyData.createdDate}</span>
+        <br />
+        Area : <span>{dummyData.area}</span>
+        <br />
+        Email : <span>{dummyData.email}</span>
+        <br />
+        Application : <span>{dummyData.application}</span>
+        <br />
+        Status : <span>{dummyData.status}</span>
+        <br />
+      </div>
       <button onClick={handleClickOpen}>Approve</button>
       <br />
       <button onClick={handleClickOpenReject}>Reject</button>
