@@ -64,16 +64,22 @@ describe("Confirmation", () => {
   });
 
   it("renders Hubungan dengan Nasabah lain di Bank section", () => {
-    const { hubunganDgnNasabahLain } = confirmationLabels;
-
     render(<Confirmation />);
     expectTextInTheDocument("Hubungan dengan Nasabah lain di Bank");
-    // hubunganDgnNasabahLain.forEach((item) => expectTestIdInTheDocument(item));
     for (const property in confirmationData.hubunganDgnNasabahLain) {
       expectTestIdInTheDocument("HDNSLID_" + property);
       expectTextInTheDocument(
         confirmationData.hubunganDgnNasabahLain[property]
       );
+    }
+  });
+
+  it("renders Hubungan dengan pihak lain di Bank section", () => {
+    render(<Confirmation />);
+    expectTextInTheDocument("Hubungan dengan pihak lain di Bank");
+    for (const property in confirmationData.hubunganDgnPihakLain) {
+      expectTestIdInTheDocument("HDNPLID_" + property);
+      expectTextInTheDocument(confirmationData.hubunganDgnPihakLain[property]);
     }
   });
 

@@ -98,6 +98,13 @@ export const confirmationData = {
     Produk: "Simpanan Luar Biasa",
     JenisHubungan: "teman",
   },
+  hubunganDgnPihakLain: {
+    Nama: "Lira",
+    JenisHubungan: "Teman",
+    SektorUsaha: "Otomotif",
+    Alamat: "Padang",
+    NoTelepon: "08111111111",
+  },
 };
 
 export const confirmationLabels = {
@@ -126,4 +133,11 @@ export const confirmationLabels = {
   ],
   laporanKeuangan: ["Modal Dasar Perusahaan", "Modal Disetor"],
   hubunganDgnNasabahLain: ["Nama", "Produk", "Jenis Hubungan"],
+  hubunganDgnPihakLain: [
+    "Nama",
+    "Jenis Hubungan",
+    "Sektor Usaha",
+    "Alamat",
+    "No. Telepon",
+  ],
 };
