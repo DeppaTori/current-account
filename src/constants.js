@@ -16,4 +16,11 @@ export const confirmationData = {
     date: "04-08-2022",
     bentukBadanUsaha: "Swasta",
   },
+  dataPerusahaan: {
+    nama: "PT. Jaya Lancar",
+    tempatBerdiri: "Jakarta",
+    tanggalBediri: "23-12-1999",
+    bidang: "Property",
+    group: "Group Super Sekali",
+  },
 };
