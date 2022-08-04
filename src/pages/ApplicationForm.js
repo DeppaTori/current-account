@@ -39,6 +39,10 @@ export const ApplicationForm = () => {
       tglBerlakuAkta: "",
       alamatKantor: "",
     },
+    persetujuan: {
+      ketentuan: "",
+      syarat: "",
+    },
   });
   const [namaPerusahaan, setNamaPerusahaan] = useState("");
   const [tempatBerdiriPerusahaan, setTempatBerdiriPerusahaan] = useState("");
@@ -49,6 +53,12 @@ export const ApplicationForm = () => {
     tempatKeluarAkta: "",
     tglBerlakuAkta: "",
     alamatKantor: "",
+  });
+  const [persetujuan, setPersetujuan] = useState({
+    ketentuanA: false,
+    ketentuanB: false,
+    syaratA: false,
+    syaratB: false,
   });
   let navigate = useNavigate();
 
@@ -245,6 +255,17 @@ export const ApplicationForm = () => {
       setBadanUsahaLainnya(e.target.value);
     }
 
+    // for checkbox
+
+    if (
+      ["syaratA", "syaratB", "ketentuanA", "ketentuanB"].includes(e.target.name)
+    ) {
+      setPersetujuan({
+        ...persetujuan,
+        [e.target.name]: e.target.checked,
+      });
+    }
+
     fieldsManager.forEach((field) => {
       if (e.target.name === field.name) {
         field.setState(e.target.value);
@@ -261,6 +282,8 @@ export const ApplicationForm = () => {
 
     let badanUsahaLainnyaError = "";
     let branchCodeError = "";
+    let syaratError = "";
+    let ketentuanError = "";
 
     let totalError = 0;
 
@@ -285,10 +308,22 @@ export const ApplicationForm = () => {
         totalError++;
       }
     }
+    if (persetujuan.syaratA === false && persetujuan.syaratB === false) {
+      syaratError = "Syarat Khusus Join Account tidak boleh kosong";
+    }
+    if (persetujuan.ketentuanA === false && persetujuan.ketentuanB === false) {
+      ketentuanError =
+        "Ketentuan dan Syarat khusu rekening Giro tidak boleh kosong";
+    }
 
     let mergeErrors = {
       badanUsahaLainnya: badanUsahaLainnyaError,
       branchCode: branchCodeError,
+      persetujuan: {
+        ...validationMessages.persetujuan,
+        syarat: syaratError,
+        ketentuan: ketentuanError,
+      },
       jenisIdentitasUtama: {},
     };
 
@@ -322,14 +357,14 @@ export const ApplicationForm = () => {
       ...mergeErrors,
     });
 
-    if (metodePenyerahan === "unggahdokumen") {
-      navigate("/upload-document", { replace: true });
-    }
+    // if (metodePenyerahan === "unggahdokumen") {
+    //   navigate("/upload-document", { replace: true });
+    // }
   };
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Paper style={{ width: "600px", textAlign: "left", padding: 20 }}>
+      <Paper style={{ width: "800px", textAlign: "left", padding: 20 }}>
         <h2>Aplikasi Pembukaan Rekening Giro</h2>
 
         <form onSubmit={handleSubmit}>
@@ -390,21 +425,34 @@ export const ApplicationForm = () => {
           <LaporanKeuanganTahunanFields />
           <AlamatElektronikFields />
           <KonfirmasiTransaksiFields />
-          <PersetujuanFields />
+          <PersetujuanFields
+            onChange={handleChange}
+            errMsg={validationMessages.persetujuan}
+          />
           <UnggahDokumenFields />
           <MetodePenyerahanDokumenFields />
-          <label htmlFor="branchcode">Branch Code</label>
-          <input
-            id="branchcode"
-            type="text"
-            name="branchcode"
-            maxLength="40"
-            value={branchCode}
-            onChange={handleChange}
-          />
-          {validationMessages.branchCode.length > 0 && (
-            <span>{validationMessages.branchCode}</span>
-          )}
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div>
+              <label htmlFor="branchcode">Branch Code</label>
+            </div>
+            <div>
+              <input
+                id="branchcode"
+                type="text"
+                name="branchcode"
+                maxLength="40"
+                value={branchCode}
+                onChange={handleChange}
+              />
+              <br />
+              {validationMessages.branchCode.length > 0 && (
+                <span className="error-text">
+                  {validationMessages.branchCode}
+                </span>
+              )}
+            </div>
+          </div>
+
           <br />
 
           <input

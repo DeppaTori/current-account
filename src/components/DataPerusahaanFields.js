@@ -18,30 +18,50 @@ export const DataPerusahaanFields = ({ errMsg, onChange }) => {
         errMsg={errMsg.tempat}
         onChange={onChange}
       />
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div>
+          <label htmlFor="tanggal" className="required">
+            Tanggal Berdiri Perusahaan
+          </label>
+        </div>
+        <div>
+          <input
+            id="tanggal"
+            type="date"
+            name={generateName("Tanggal Berdiri Perusahaan")}
+            onChange={onChange}
+          />
+          <br />
+          {errMsg.tanggal.length > 0 && (
+            <span className="error-text">{errMsg.tanggal}</span>
+          )}
+        </div>
+      </div>
 
-      <label htmlFor="tanggal">Tanggal Berdiri Perusahaan</label>
-      <input
-        id="tanggal"
-        type="date"
-        name={generateName("Tanggal Berdiri Perusahaan")}
-        onChange={onChange}
-      />
       <br />
-      {errMsg.tanggal.length > 0 && <span>{errMsg.tanggal}</span>}
-      <br />
-      <label for="bidang">Bidang Usaha</label>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div>
+          <label for="bidang" className="required">
+            Bidang Usaha
+          </label>
+        </div>
+        <div>
+          <select
+            name={generateName("Bidang Usaha")}
+            id="bidang"
+            onChange={onChange}
+          >
+            <option value="">---Bidang Usaha---</option>
+            <option value="property">Property</option>
+            <option value="pergudangan">Pergudangan</option>
+          </select>
+          <br />
+          {errMsg.bidang.length > 0 && (
+            <span className="error-text">{errMsg.bidang}</span>
+          )}
+        </div>
+      </div>
 
-      <select
-        name={generateName("Bidang Usaha")}
-        id="bidang"
-        onChange={onChange}
-      >
-        <option value="">---Bidang Usaha---</option>
-        <option value="property">Property</option>
-        <option value="pergudangan">Pergudangan</option>
-      </select>
-      <br />
-      {errMsg.bidang.length > 0 && <span>{errMsg.bidang}</span>}
       <br />
     </>
   );

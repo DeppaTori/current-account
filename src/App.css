@@ -39,3 +39,11 @@
 label {
   margin-right: 20px;
 }
+.error-text {
+  color: red;
+  font-size: 14px;
+}
+.required:after {
+  content: " *";
+  color: red;
+}

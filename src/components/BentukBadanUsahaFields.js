@@ -50,7 +50,9 @@ export const BentukBadanUsahaFields = ({
         disabled={jenisBadanUsaha !== "lainnya" ? true : false}
       />
       <br />
-      {errLainnya.length > 0 && <span>{errLainnya}</span>}
+      {errLainnya.length > 0 && (
+        <span className="error-text">{errLainnya}</span>
+      )}
       <br />
     </>
   );
