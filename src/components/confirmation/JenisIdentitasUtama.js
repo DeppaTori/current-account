@@ -2,17 +2,17 @@ export const JenisIdentitasUtama = ({ dataJIU }) => {
   const Document = ({ name, data }) => {
     return (
       <>
-        <div>
-          <span>{name} :</span>
-          <span>{data?.nomor}</span>
+        <div className="confirmation-row">
+          <div>{name}</div>
+          <div>: {data?.nomor}</div>
         </div>
-        <div>
-          <span>Tempat Dikeluarkan Identitas :</span>
-          <span>{data?.tempat}</span>
+        <div className="confirmation-row">
+          <div>Tempat Dikeluarkan Identitas</div>
+          <div>: {data?.tempat}</div>
         </div>
-        <div>
-          <span>Berlaku Hingga :</span>
-          <span>{data?.berlaku}</span>
+        <div className="confirmation-row">
+          <div>Berlaku Hingga </div>
+          <div>: {data?.berlaku}</div>
         </div>
       </>
     );
@@ -22,43 +22,43 @@ export const JenisIdentitasUtama = ({ dataJIU }) => {
     <>
       <h4>Jenis Identitas Utama</h4>
       <Document name="Akta Pendirian" data={dataJIU.aktaPendirian} />
-      <div>
-        <span>Alamat Kantor :</span>
-        <span>{dataJIU.alamatKantor}</span>
+      <div className="confirmation-row">
+        <div>Alamat Kantor </div>
+        <div>: {dataJIU.alamatKantor}</div>
       </div>
-      <div>
-        <span>Provinsi :</span>
-        <span>{dataJIU.provinsi}</span>
+      <div className="confirmation-row">
+        <div>Provinsi </div>
+        <div>: {dataJIU.provinsi}</div>
       </div>
-      <div>
-        <span>Kabupaten/Kota :</span>
-        <span>{dataJIU.kabupatenkota}</span>
+      <div className="confirmation-row">
+        <div>Kabupaten/Kota </div>
+        <div>: {dataJIU.kabupatenkota}</div>
       </div>
-      <div>
-        <span>Area :</span>
-        <span>{dataJIU.area}</span>
+      <div className="confirmation-row">
+        <div>Area </div>
+        <div>: {dataJIU.area}</div>
       </div>
-      <div>
-        <span>Alamat Pabrik :</span>
-        <span>{dataJIU.alamatPabrik}</span>
+      <div className="confirmation-row">
+        <div>Alamat Pabrik </div>
+        <div>: {dataJIU.alamatPabrik}</div>
       </div>
-      <div>
-        <span>Alamat Proyek :</span>
-        <span>{dataJIU.alamatProyek}</span>
+      <div className="confirmation-row">
+        <div>Alamat Proyek </div>
+        <div>: {dataJIU.alamatProyek}</div>
       </div>
-      <div>
-        <span>Alamat Kirim Surat :</span>
-        <span>{dataJIU.alamatKirimSurat}</span>
+      <div className="confirmation-row">
+        <div>Alamat Kirim Surat </div>
+        <div>: {dataJIU.alamatKirimSurat}</div>
       </div>
       <Document name="NPWP" data={dataJIU.npwp} />
-      <div>
-        <span>Dokumen Lainnya :</span>
+      <div style={{ marginTop: "20px" }}>
+        <b>Dokumen Lainnya :</b>
       </div>
       <Document name="Nomor NIB" data={dataJIU.nib} />
       <Document name="SIUP" data={dataJIU.siup} />
       <Document name="TDP" data={dataJIU.tdp} />
-      <div>
-        <span>Lainnya :</span>
+      <div style={{ marginTop: "20px" }}>
+        <b>Lainnya :</b>
       </div>
       <Document name="Nomor" data={dataJIU.nomor} />
     </>

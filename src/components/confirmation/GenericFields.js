@@ -4,6 +4,7 @@ export const GenericFields = ({ title, fields, prefixId = null }) => {
       <h4>{title}</h4>
       {fields.map((item, i) => (
         <div
+          className="confirmation-row"
           key={i}
           data-testid={
             prefixId
@@ -11,8 +12,8 @@ export const GenericFields = ({ title, fields, prefixId = null }) => {
               : null
           }
         >
-          <span>{item.label} :</span>
-          <span>{item.value}</span>
+          <div>{item.label}</div>
+          <div>: {item.value}</div>
         </div>
       ))}
     </>

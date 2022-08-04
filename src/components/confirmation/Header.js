@@ -1,13 +1,13 @@
 export const Header = ({ data }) => {
   return (
     <>
-      <div>
-        <span>Date :</span>
-        <span>{data.date}</span>
+      <div className="confirmation-row">
+        <div>Date </div>
+        <div>: {data.date}</div>
       </div>
-      <div>
-        <span>Bentuk Badan Usaha :</span>
-        <span>{data.bentukBadanUsaha}</span>
+      <div className="confirmation-row">
+        <div>Bentuk Badan Usaha</div>
+        <div>: {data.bentukBadanUsaha}</div>
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import { confirmationData, confirmationLabels } from "../constants";
 import { InformasiLainnya } from "../components/confirmation/InformasiLainnya";
 import { GenericFields } from "../components/confirmation/GenericFields";
 import { generateLabelValues } from "../Helper";
+import { Paper } from "@mui/material";
 
 export const Confirmation = () => {
   const { header, dataPerusahaan, jenisIdentitasUtama, informasiLainnya } =
@@ -83,71 +84,73 @@ export const Confirmation = () => {
   );
 
   return (
-    <>
-      <h3>Konfirmasi</h3>
-      <Header data={header} />
-      <DataPerusahaan data={dataPerusahaan} />
-      <JenisIdentitasUtama dataJIU={jenisIdentitasUtama} />
-      <InformasiLainnya data={informasiLainnya} />
-      <GenericFields
-        title="Pendapatan Rata-Rata per bulan"
-        fields={pendapatanPerBulanLabelValues}
-      />
-      <GenericFields
-        title="Rekening yang dimiliki saat ini (Bank/Inst. Keuangan Lainnya)"
-        fields={rekeningSaatIniLabelValues}
-      />
-      <GenericFields
-        title="Susunan Manajemen sesuai dengan Akta Pendirian atau Perubahan"
-        fields={susunanManajemenLabelValues}
-      />
-      <GenericFields
-        title="Laporan Keuangan Tahunan"
-        fields={laporanKeuanganLabelValues}
-      />
-      <GenericFields
-        title="Hubungan dengan Nasabah lain di Bank"
-        fields={hubunganDgnNasabahLainLabelValues}
-        prefixId="HDNSLID_"
-      />
-      <GenericFields
-        title="Hubungan dengan pihak lain di Bank"
-        fields={hubunganDgnPihakLainLabelValues}
-        prefixId="HDNPLID_"
-      />
-      <GenericFields
-        title="Sering bertransaksi dengan"
-        fields={seringBertransaksiDenganLabelValues}
-        prefixId="SBDID_"
-      />
-      <GenericFields
-        title="Alamat Elektronik"
-        fields={alamatElektronikLabelValues}
-        prefixId="AEID_"
-      />
-      <GenericFields
-        title="Fasilitas Pembayaran Tagihan dan Lainnya"
-        fields={fasilitasPembayaranTagihanLabelValues}
-        prefixId="FTLID_"
-      />
-      <GenericFields
-        title="Konfirmasi Transaksi"
-        fields={konfirmasiTransaksiLabelValues}
-        prefixId="KTID_"
-      />
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Paper style={{ width: "800px", textAlign: "left", padding: 20 }}>
+        <h2>Konfirmasi</h2>
+        <Header data={header} />
+        <DataPerusahaan data={dataPerusahaan} />
+        <JenisIdentitasUtama dataJIU={jenisIdentitasUtama} />
+        <InformasiLainnya data={informasiLainnya} />
+        <GenericFields
+          title="Pendapatan Rata-Rata per bulan"
+          fields={pendapatanPerBulanLabelValues}
+        />
+        <GenericFields
+          title="Rekening yang dimiliki saat ini (Bank/Inst. Keuangan Lainnya)"
+          fields={rekeningSaatIniLabelValues}
+        />
+        <GenericFields
+          title="Susunan Manajemen sesuai dengan Akta Pendirian atau Perubahan"
+          fields={susunanManajemenLabelValues}
+        />
+        <GenericFields
+          title="Laporan Keuangan Tahunan"
+          fields={laporanKeuanganLabelValues}
+        />
+        <GenericFields
+          title="Hubungan dengan Nasabah lain di Bank"
+          fields={hubunganDgnNasabahLainLabelValues}
+          prefixId="HDNSLID_"
+        />
+        <GenericFields
+          title="Hubungan dengan pihak lain di Bank"
+          fields={hubunganDgnPihakLainLabelValues}
+          prefixId="HDNPLID_"
+        />
+        <GenericFields
+          title="Sering bertransaksi dengan"
+          fields={seringBertransaksiDenganLabelValues}
+          prefixId="SBDID_"
+        />
+        <GenericFields
+          title="Alamat Elektronik"
+          fields={alamatElektronikLabelValues}
+          prefixId="AEID_"
+        />
+        <GenericFields
+          title="Fasilitas Pembayaran Tagihan dan Lainnya"
+          fields={fasilitasPembayaranTagihanLabelValues}
+          prefixId="FTLID_"
+        />
+        <GenericFields
+          title="Konfirmasi Transaksi"
+          fields={konfirmasiTransaksiLabelValues}
+          prefixId="KTID_"
+        />
 
-      <GenericFields
-        title="Persetujuan"
-        fields={persetujuanLabelValues}
-        prefixId="PSJID_"
-      />
+        <GenericFields
+          title="Persetujuan"
+          fields={persetujuanLabelValues}
+          prefixId="PSJID_"
+        />
 
-      <GenericFields
-        title="Unggah Dokumen"
-        fields={unggahDokumenLabelValues}
-        prefixId="UDID_"
-      />
-      <button>Submit</button>
-    </>
+        <GenericFields
+          title="Unggah Dokumen"
+          fields={unggahDokumenLabelValues}
+          prefixId="UDID_"
+        />
+        <button style={{ fontSize: "24px", marginTop: "30px" }}>Submit</button>
+      </Paper>
+    </div>
   );
 };

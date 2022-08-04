@@ -2,25 +2,25 @@ export const DataPerusahaan = ({ data }) => {
   return (
     <>
       <h4>Data Perusahaan</h4>
-      <div>
-        <span>Nama Lengkap Perusahaan :</span>
-        <span>{data.nama}</span>
+      <div className="confirmation-row">
+        <div>Nama Lengkap Perusahaan </div>
+        <div>: {data.nama}</div>
       </div>
-      <div>
-        <span>Tempat Berdiri Perusahaan :</span>
-        <span>{data.tempatBerdiri}</span>
+      <div className="confirmation-row">
+        <div>Tempat Berdiri Perusahaan </div>
+        <div>: {data.tempatBerdiri}</div>
       </div>
-      <div>
-        <span>Tanggal Berdiri Perusahaan :</span>
-        <span>{data.tanggalBediri}</span>
+      <div className="confirmation-row">
+        <div>Tanggal Berdiri Perusahaan </div>
+        <div>: {data.tanggalBediri}</div>
       </div>
-      <div>
-        <span>Bidang Usaha :</span>
-        <span>{data.bidang}</span>
+      <div className="confirmation-row">
+        <div>Bidang Usaha </div>
+        <div>: {data.bidang}</div>
       </div>
-      <div>
-        <span>Grup :</span>
-        <span>{data.group}</span>
+      <div className="confirmation-row">
+        <div>Grup </div>
+        <div>: {data.group}</div>
       </div>
     </>
   );

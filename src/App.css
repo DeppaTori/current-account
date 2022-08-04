@@ -47,3 +47,17 @@ label {
   content: " *";
   color: red;
 }
+.confirmation-row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 6px;
+}
+
+.confirmation-row > div:first-child {
+  flex: 1;
+  font-weight: 600;
+}
+
+.confirmation-row > div:last-child {
+  flex: 2;
+}

@@ -2,13 +2,13 @@ export const InformasiLainnya = ({ data }) => {
   return (
     <>
       <h4>Informasi Lainnya</h4>
-      <div>
-        <span>Bidang Usaha :</span>
-        <span>{data.bidang}</span>
+      <div className="confirmation-row">
+        <div>Bidang Usaha</div>
+        <div>: {data.bidang}</div>
       </div>
-      <div>
-        <span>Alamat Kantor :</span>
-        <span>{data.alamat}</span>
+      <div className="confirmation-row">
+        <div>Alamat Kantor</div>
+        <div>: {data.alamat}</div>
       </div>
     </>
   );
