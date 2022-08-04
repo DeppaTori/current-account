@@ -62,4 +62,8 @@ export const confirmationData = {
       berlaku: "23-12-2055",
     },
   },
+  informasiLainnya: {
+    bidang: "Bidang Informasi Lainnya",
+    alamat: "Alamat Informasi Lainnya",
+  },
 };
