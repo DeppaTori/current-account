@@ -9,33 +9,36 @@ export const BentukBadanUsahaFields = ({
 }) => {
   return (
     <>
-      <fieldset>
-        <legend>Bentuk Badan Usaha</legend>
-        <div>
-          <input
-            type="radio"
-            value={JENIS_USAHA_SWASTA}
-            id="radiobbu1"
-            name="bentukbadanusaha"
-            checked={jenisBadanUsaha === JENIS_USAHA_SWASTA ? true : false}
-            required
-            onChange={handleChange}
-          />
-          <label htmlFor="radiobbu1">Badan Usaha Swasta</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value={JENIS_USAHA_LAINNYA}
-            id="radiobbu2"
-            name="bentukbadanusaha"
-            checked={jenisBadanUsaha === JENIS_USAHA_LAINNYA ? true : false}
-            required
-            onChange={handleChange}
-          />
-          <label htmlFor="radiobbu2">Lainnya</label>
-        </div>
-      </fieldset>
+      <p>
+        <b>Bentuk Badan Usaha</b>
+      </p>
+
+      <input
+        type="radio"
+        value={JENIS_USAHA_SWASTA}
+        id="radiobbu1"
+        name="bentukbadanusaha"
+        checked={jenisBadanUsaha === JENIS_USAHA_SWASTA ? true : false}
+        required
+        onChange={handleChange}
+      />
+      <label htmlFor="radiobbu1" style={{ marginRight: "20px" }}>
+        Badan Usaha Swasta
+      </label>
+
+      <input
+        type="radio"
+        value={JENIS_USAHA_LAINNYA}
+        id="radiobbu2"
+        name="bentukbadanusaha"
+        checked={jenisBadanUsaha === JENIS_USAHA_LAINNYA ? true : false}
+        required
+        onChange={handleChange}
+      />
+      <label htmlFor="radiobbu2">Lainnya</label>
+
+      <br />
+
       <label htmlFor="lainnya">Lainnya</label>
       <input
         id="lainnya"

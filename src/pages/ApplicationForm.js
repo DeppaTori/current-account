@@ -18,6 +18,8 @@ import {
   validateEmpty,
   validateEmptyAndAlphaNumeric,
 } from "../Helper";
+import { useNavigate } from "react-router-dom";
+import { Paper } from "@mui/material";
 
 export const ApplicationForm = () => {
   const [branchCode, setBranchCode] = useState("");
@@ -48,6 +50,7 @@ export const ApplicationForm = () => {
     tglBerlakuAkta: "",
     alamatKantor: "",
   });
+  let navigate = useNavigate();
 
   const fieldsManager = [
     {
@@ -259,20 +262,27 @@ export const ApplicationForm = () => {
     let badanUsahaLainnyaError = "";
     let branchCodeError = "";
 
+    let totalError = 0;
+
     if (metodePenyerahan === "kecabang") {
       if (branchCode.length <= 0) {
         branchCodeError = "Kode cabang tidak boleh kosong";
+        totalError++;
       } else if (!branchCode.toLowerCase().match(/^[0-9a-z]+$/)) {
         branchCodeError = "Kode cabang harus alfanumerik";
+        totalError++;
       } else if (branchCode.length > 40) {
         branchCodeError = "Kode cabang maksimal 40 karakter";
+        totalError++;
       }
     }
     if (jenisBadanUsaha === JENIS_USAHA_LAINNYA) {
       if (badanUsahaLainnya.length <= 0) {
         badanUsahaLainnyaError = "Badan Usaha lainnya tidak boleh kosong";
+        totalError++;
       } else if (!isAlphabet(badanUsahaLainnya)) {
         badanUsahaLainnyaError = "Badan usaha lainnya harus alphabet";
+        totalError++;
       }
     }
 
@@ -312,87 +322,98 @@ export const ApplicationForm = () => {
       ...mergeErrors,
     });
 
-    console.log("Submittt...");
+    if (metodePenyerahan === "unggahdokumen") {
+      navigate("/upload-document", { replace: true });
+    }
   };
 
   return (
-    <>
-      <h3>Form</h3>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Paper style={{ width: "600px", textAlign: "left", padding: 20 }}>
+        <h2>Aplikasi Pembukaan Rekening Giro</h2>
 
-      <form onSubmit={handleSubmit}>
-        <p>Date : {new Date().toLocaleDateString()}</p>
-        <fieldset>
-          <legend>Metode Penyerahan Dokumen</legend>
-          <div>
-            <input
-              type="radio"
-              value="unggahdokumen"
-              id="radio1"
-              name="metodepenyerahan"
-              checked={metodePenyerahan === "unggahdokumen" ? true : false}
-              required
-              onChange={handleChange}
-            />
-            <label htmlFor="radio1">Unggah Dokumen</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              value="kecabang"
-              id="radio2"
-              name="metodepenyerahan"
-              checked={metodePenyerahan === "kecabang" ? true : false}
-              onChange={handleChange}
-            />
-            <label htmlFor="radio2">Diserahkan ke Cabang</label>
-          </div>
-        </fieldset>
-        <br />
+        <form onSubmit={handleSubmit}>
+          <p>Date : {new Date().toLocaleDateString()}</p>
 
-        <BentukBadanUsahaFields
-          jenisBadanUsaha={jenisBadanUsaha}
-          badanUsahaLainnya={badanUsahaLainnya}
-          handleChange={handleChange}
-          errLainnya={validationMessages.badanUsahaLainnya}
-        />
-        <br />
-        <DataPerusahaanFields
-          onChange={handleChange}
-          errMsg={{
-            nama: validationMessages.namaPerusahaan,
-            tempat: validationMessages.tempatBerdiriPerusahaan,
-            tanggal: validationMessages.tanggalBerdiriPerusahaan,
-            bidang: validationMessages.bidangUsahaPerusahaan,
-          }}
-        />
-        <JenisIdentitasUtamaFields
-          onChange={handleChange}
-          errMsg={validationMessages.jenisIdentitasUtama}
-        />
-        <InformasiLainnyaFields />
-        <PendapatanRataRataFields />
-        <SusunanManajemenFields />
-        <LaporanKeuanganTahunanFields />
-        <AlamatElektronikFields />
-        <KonfirmasiTransaksiFields />
-        <PersetujuanFields />
-        <UnggahDokumenFields />
-        <MetodePenyerahanDokumenFields />
-        <label htmlFor="branchcode">Branch Code</label>
-        <input
-          id="branchcode"
-          type="text"
-          name="branchcode"
-          maxLength="40"
-          value={branchCode}
-          onChange={handleChange}
-        />
-        {validationMessages.branchCode.length > 0 && (
-          <span>{validationMessages.branchCode}</span>
-        )}
-        <br />
-        <input type="submit" value="Confirm" />
-      </form>
-    </>
+          <p>
+            <b>Metode Penyerahan Dokumen</b>
+          </p>
+
+          <input
+            type="radio"
+            value="unggahdokumen"
+            id="radio1"
+            name="metodepenyerahan"
+            checked={metodePenyerahan === "unggahdokumen" ? true : false}
+            required
+            onChange={handleChange}
+          />
+          <label htmlFor="radio1" style={{ marginRight: "20px" }}>
+            Unggah Dokumen
+          </label>
+
+          <input
+            type="radio"
+            value="kecabang"
+            id="radio2"
+            name="metodepenyerahan"
+            checked={metodePenyerahan === "kecabang" ? true : false}
+            onChange={handleChange}
+          />
+          <label htmlFor="radio2">Diserahkan ke Cabang</label>
+
+          <br />
+
+          <BentukBadanUsahaFields
+            jenisBadanUsaha={jenisBadanUsaha}
+            badanUsahaLainnya={badanUsahaLainnya}
+            handleChange={handleChange}
+            errLainnya={validationMessages.badanUsahaLainnya}
+          />
+          <br />
+          <DataPerusahaanFields
+            onChange={handleChange}
+            errMsg={{
+              nama: validationMessages.namaPerusahaan,
+              tempat: validationMessages.tempatBerdiriPerusahaan,
+              tanggal: validationMessages.tanggalBerdiriPerusahaan,
+              bidang: validationMessages.bidangUsahaPerusahaan,
+            }}
+          />
+          <JenisIdentitasUtamaFields
+            onChange={handleChange}
+            errMsg={validationMessages.jenisIdentitasUtama}
+          />
+          <InformasiLainnyaFields />
+          <PendapatanRataRataFields />
+          <SusunanManajemenFields />
+          <LaporanKeuanganTahunanFields />
+          <AlamatElektronikFields />
+          <KonfirmasiTransaksiFields />
+          <PersetujuanFields />
+          <UnggahDokumenFields />
+          <MetodePenyerahanDokumenFields />
+          <label htmlFor="branchcode">Branch Code</label>
+          <input
+            id="branchcode"
+            type="text"
+            name="branchcode"
+            maxLength="40"
+            value={branchCode}
+            onChange={handleChange}
+          />
+          {validationMessages.branchCode.length > 0 && (
+            <span>{validationMessages.branchCode}</span>
+          )}
+          <br />
+
+          <input
+            type="submit"
+            value="Confirm"
+            style={{ fontSize: "24px", marginTop: "30px" }}
+          />
+        </form>
+      </Paper>
+    </div>
   );
 };
