@@ -10,3 +10,10 @@ export const dataPendingTask = {
   application: "NEWACCOUNT",
   status: "Created",
 };
+
+export const confirmationData = {
+  header: {
+    date: "04-08-2022",
+    bentukBadanUsaha: "Swasta",
+  },
+};
