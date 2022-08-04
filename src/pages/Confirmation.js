@@ -15,6 +15,7 @@ export const Confirmation = () => {
     rekeningSaatIni,
     susunanManajemen,
     laporanKeuangan,
+    hubunganDgnNasabahLain,
   } = confirmationLabels;
   const pendapatanPerBulanLabelValues = generateLabelValues(
     pendapatanRataPerBulan,
@@ -32,6 +33,11 @@ export const Confirmation = () => {
   const laporanKeuanganLabelValues = generateLabelValues(
     laporanKeuangan,
     confirmationData.laporanKeuangan
+  );
+
+  const hubunganDgnNasabahLainLabelValues = generateLabelValues(
+    hubunganDgnNasabahLain,
+    confirmationData.hubunganDgnNasabahLain
   );
 
   return (
@@ -56,6 +62,11 @@ export const Confirmation = () => {
       <GenericFields
         title="Laporan Keuangan Tahunan"
         fields={laporanKeuanganLabelValues}
+      />
+      <GenericFields
+        title="Hubungan dengan Nasabah lain di Bank"
+        fields={hubunganDgnNasabahLainLabelValues}
+        prefixId="HDNSLID_"
       />
       <button>Submit</button>
     </>

@@ -1,6 +1,9 @@
 const { render, screen } = require("@testing-library/react");
 const { confirmationLabels, confirmationData } = require("../../constants");
-const { expectTextInTheDocument } = require("../../TestHelper");
+const {
+  expectTextInTheDocument,
+  expectTestIdInTheDocument,
+} = require("../../TestHelper");
 const { Confirmation } = require("../Confirmation");
 
 describe("Confirmation", () => {
@@ -57,6 +60,20 @@ describe("Confirmation", () => {
     laporanKeuangan.forEach((item) => expectTextInTheDocument(item + " :"));
     for (const property in confirmationData.laporanKeuangan) {
       expectTextInTheDocument(confirmationData.laporanKeuangan[property]);
+    }
+  });
+
+  it("renders Hubungan dengan Nasabah lain di Bank section", () => {
+    const { hubunganDgnNasabahLain } = confirmationLabels;
+
+    render(<Confirmation />);
+    expectTextInTheDocument("Hubungan dengan Nasabah lain di Bank");
+    // hubunganDgnNasabahLain.forEach((item) => expectTestIdInTheDocument(item));
+    for (const property in confirmationData.hubunganDgnNasabahLain) {
+      expectTestIdInTheDocument("HDNSLID_" + property);
+      expectTextInTheDocument(
+        confirmationData.hubunganDgnNasabahLain[property]
+      );
     }
   });
 

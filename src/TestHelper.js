@@ -14,3 +14,7 @@ export const expectTextInTheDocument = (text) => {
 export const expectRadioInTheDocument = (label) => {
   expect(screen.getByRole("radio", { name: label })).toBeInTheDocument();
 };
+
+export const expectTestIdInTheDocument = (tesId) => {
+  expect(screen.getByTestId(tesId)).toBeInTheDocument();
+};

@@ -93,6 +93,11 @@ export const confirmationData = {
     ModalDasarPerusahaan: "Rp. 1",
     ModalDisetor: "Rp. 2",
   },
+  hubunganDgnNasabahLain: {
+    Nama: "Claire",
+    Produk: "Simpanan Luar Biasa",
+    JenisHubungan: "teman",
+  },
 };
 
 export const confirmationLabels = {
@@ -120,4 +125,5 @@ export const confirmationLabels = {
     "Komisaris 3",
   ],
   laporanKeuangan: ["Modal Dasar Perusahaan", "Modal Disetor"],
+  hubunganDgnNasabahLain: ["Nama", "Produk", "Jenis Hubungan"],
 };
