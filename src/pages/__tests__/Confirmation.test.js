@@ -94,6 +94,15 @@ describe("Confirmation", () => {
     }
   });
 
+  it("renders Alamat Elektronik section", () => {
+    render(<Confirmation />);
+    expectTextInTheDocument("Alamat Elektronik");
+    for (const property in confirmationData.alamatElektronik) {
+      expectTestIdInTheDocument("AEID_" + property);
+      expectTextInTheDocument(confirmationData.alamatElektronik[property]);
+    }
+  });
+
   it("renders headings", () => {
     render(<Confirmation />);
     expect(

@@ -112,6 +112,17 @@ export const confirmationData = {
     Alamat: "Jakarta Timur",
     NoTelepon: "022222222",
   },
+  alamatElektronik: {
+    TeleponRumah: "021999112",
+    TeleponSelular: "088811223",
+    FAX: "0212323444",
+    TeleponKantor: "0212309903",
+    Email: "mail@mail.com",
+    JenisRekening: "Tabungan Biasa",
+    JenisValuta: "Nasional",
+    TujuanPembukaanRekening: "Nabung",
+    TujuanPenggunaanDana: "Usaha",
+  },
 };
 
 export const confirmationLabels = {
@@ -153,5 +164,16 @@ export const confirmationLabels = {
     "Sektor Usaha",
     "Alamat",
     "No. Telepon",
+  ],
+  alamatElektronik: [
+    "Telepon Rumah",
+    "Telepon Selular",
+    "FAX",
+    "Telepon Kantor",
+    "Email",
+    "Jenis Rekening",
+    "Jenis Valuta",
+    "Tujuan Pembukaan Rekening",
+    "Tujuan Penggunaan Dana",
   ],
 };
