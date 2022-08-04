@@ -10,8 +10,12 @@ export const Confirmation = () => {
   const { header, dataPerusahaan, jenisIdentitasUtama, informasiLainnya } =
     confirmationData;
 
-  const { pendapatanRataPerBulan, rekeningSaatIni, susunanManajemen } =
-    confirmationLabels;
+  const {
+    pendapatanRataPerBulan,
+    rekeningSaatIni,
+    susunanManajemen,
+    laporanKeuangan,
+  } = confirmationLabels;
   const pendapatanPerBulanLabelValues = generateLabelValues(
     pendapatanRataPerBulan,
     confirmationData.pendapatanRataPerBulan
@@ -23,6 +27,11 @@ export const Confirmation = () => {
   const susunanManajemenLabelValues = generateLabelValues(
     susunanManajemen,
     confirmationData.susunanManajemen
+  );
+
+  const laporanKeuanganLabelValues = generateLabelValues(
+    laporanKeuangan,
+    confirmationData.laporanKeuangan
   );
 
   return (
@@ -43,6 +52,10 @@ export const Confirmation = () => {
       <GenericFields
         title="Susunan Manajemen sesuai dengan Akta Pendirian atau Perubahan"
         fields={susunanManajemenLabelValues}
+      />
+      <GenericFields
+        title="Laporan Keuangan Tahunan"
+        fields={laporanKeuanganLabelValues}
       />
       <button>Submit</button>
     </>

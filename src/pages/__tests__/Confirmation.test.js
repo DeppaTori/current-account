@@ -49,6 +49,17 @@ describe("Confirmation", () => {
     }
   });
 
+  it("renders Laporan Keuangan Tahunan section", () => {
+    const { laporanKeuangan } = confirmationLabels;
+
+    render(<Confirmation />);
+    expectTextInTheDocument("Laporan Keuangan Tahunan");
+    laporanKeuangan.forEach((item) => expectTextInTheDocument(item + " :"));
+    for (const property in confirmationData.laporanKeuangan) {
+      expectTextInTheDocument(confirmationData.laporanKeuangan[property]);
+    }
+  });
+
   it("renders headings", () => {
     render(<Confirmation />);
     expect(

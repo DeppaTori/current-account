@@ -89,6 +89,10 @@ export const confirmationData = {
     Komisaris2: "Yanti Komisaris",
     Komisaris3: "Ye Komisaris",
   },
+  laporanKeuangan: {
+    ModalDasarPerusahaan: "Rp. 1",
+    ModalDisetor: "Rp. 2",
+  },
 };
 
 export const confirmationLabels = {
@@ -115,4 +119,5 @@ export const confirmationLabels = {
     "Komisaris 2",
     "Komisaris 3",
   ],
+  laporanKeuangan: ["Modal Dasar Perusahaan", "Modal Disetor"],
 };
