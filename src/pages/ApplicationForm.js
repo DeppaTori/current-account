@@ -16,9 +16,12 @@ import {
   generateName,
   isAlphaNumeric,
   validateAlphabet,
+  validateAlphaNumeric,
   validateEmpty,
+  validateEmptyAndAlphabet,
   validateEmptyAndAlphaNumeric,
   validateEmptyAndNumeric,
+  validateNumeric,
 } from "../Helper";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
@@ -40,6 +43,15 @@ export const ApplicationForm = () => {
       tempatKeluarAkta: "",
       tglBerlakuAkta: "",
       alamatKantor: "",
+      nomorNIB: "",
+      tempatNIB: "",
+      tanggalNIB: "",
+      nomorSIUP: "",
+      tempatSIUP: "",
+      tanggalSIUP: "",
+      nomorTDP: "",
+      tempatTDP: "",
+      tanggalTDP: "",
     },
     persetujuan: {
       ketentuan: "",
@@ -58,6 +70,22 @@ export const ApplicationForm = () => {
       lainlain: "",
       others: "",
     },
+    laporanKeuangan: {
+      modalDasar: "",
+      modalDisetor: "",
+    },
+    susunanManajemen: {
+      direktur: "",
+      komisaris: "",
+    },
+    pendapatanRataRata: {
+      operasional: "",
+      nonOperasional: "",
+      tujuanHubungan: "",
+    },
+    informasiLainnya: {
+      omzet: "",
+    },
   });
   const [namaPerusahaan, setNamaPerusahaan] = useState("");
   const [tempatBerdiriPerusahaan, setTempatBerdiriPerusahaan] = useState("");
@@ -68,6 +96,20 @@ export const ApplicationForm = () => {
     tempatKeluarAkta: "",
     tglBerlakuAkta: "",
     alamatKantor: "",
+    dokumenLainnya: {
+      NIB: false,
+      SIUP: false,
+      TDP: false,
+    },
+    nomorNIB: "",
+    tempatNIB: "",
+    tanggalNIB: "",
+    nomorSIUP: "",
+    tempatSIUP: "",
+    tanggalSIUP: "",
+    nomorTDP: "",
+    tempatTDP: "",
+    tanggalTDP: "",
   });
   const [persetujuan, setPersetujuan] = useState({
     ketentuanA: false,
@@ -89,6 +131,25 @@ export const ApplicationForm = () => {
     email: "",
     lainlain: "",
     others: "",
+  });
+
+  const [laporanKeuangan, setLaporanKeuangan] = useState({
+    modalDasar: "",
+    modalDisetor: "",
+  });
+
+  const [susunanManajemen, setSusunanManajemen] = useState({
+    direktur: "",
+    komisaris: "",
+  });
+  const [pendapatanRataRata, setPendapatanRataRata] = useState({
+    operasional: "9000000000",
+    nonOperasional: "11000000000",
+    tujuanHubungan: "A",
+  });
+
+  const [informasiLainnya, setInformasiLainnya] = useState({
+    omzet: "1000000000",
   });
 
   let navigate = useNavigate();
@@ -427,6 +488,384 @@ export const ApplicationForm = () => {
         },
       ],
     },
+    {
+      name: "LKT_" + generateName("Modal Dasar Perusahaan"),
+      setState: (val) =>
+        setLaporanKeuangan({
+          ...laporanKeuangan,
+          modalDasar: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndNumeric(
+              laporanKeuangan.modalDasar,
+              "Modal Dasar Perusahaan"
+            );
+
+            return {
+              laporanKeuangan: {
+                modalDasar: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "LKT_" + generateName("Modal Disetor"),
+      setState: (val) =>
+        setLaporanKeuangan({
+          ...laporanKeuangan,
+          modalDisetor: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndNumeric(
+              laporanKeuangan.modalDisetor,
+              "Modal Disetor"
+            );
+
+            return {
+              laporanKeuangan: {
+                modalDisetor: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "SMJ_" + generateName("Direktur Utama"),
+      setState: (val) =>
+        setSusunanManajemen({
+          ...susunanManajemen,
+          direktur: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndAlphabet(
+              susunanManajemen.direktur,
+              "Direktur Utama"
+            );
+
+            return {
+              susunanManajemen: {
+                direktur: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: "SMJ_" + generateName("Komisaris Utama"),
+      setState: (val) =>
+        setSusunanManajemen({
+          ...susunanManajemen,
+          komisaris: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndAlphabet(
+              susunanManajemen.komisaris,
+              "Komisaris Utama"
+            );
+
+            return {
+              susunanManajemen: {
+                komisaris: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Nomor NIB"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          nomorNIB: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (jenisIdentitasUtama.dokumenLainnya.NIB) {
+              result = validateEmptyAndNumeric(
+                jenisIdentitasUtama.nomorNIB,
+                "Nomor NIB"
+              );
+            } else {
+              result = validateNumeric(
+                jenisIdentitasUtama.nomorNIB,
+                "Nomor NIB"
+              );
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                nomorNIB: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tempat Dikeluarkan NIB"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tempatNIB: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (jenisIdentitasUtama.dokumenLainnya.NIB) {
+              result = validateEmptyAndAlphaNumeric(
+                jenisIdentitasUtama.tempatNIB,
+                "Tempat Dikeluarkan NIB"
+              );
+            } else {
+              result = validateAlphaNumeric(
+                jenisIdentitasUtama.tempatNIB,
+                "Tempat Dikeluarkan NIB"
+              );
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                tempatNIB: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tanggal berlaku NIB"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tanggalNIB: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (jenisIdentitasUtama.dokumenLainnya.NIB) {
+              if (jenisIdentitasUtama.tanggalNIB.length === 0) {
+                result = "Tanggal berlaku NIB tidak boleh kosong.";
+              }
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                tanggalNIB: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Nomor SIUP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          nomorSIUP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (jenisIdentitasUtama.dokumenLainnya.SIUP) {
+              result = validateEmptyAndNumeric(
+                jenisIdentitasUtama.nomorSIUP,
+                "Nomor SIUP"
+              );
+            } else {
+              result = validateNumeric(
+                jenisIdentitasUtama.nomorSIUP,
+                "Nomor SIUP"
+              );
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                nomorSIUP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tempat Dikeluarkan SIUP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tempatSIUP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (
+              jenisIdentitasUtama.dokumenLainnya.SIUP &&
+              jenisIdentitasUtama.dokumenLainnya.TDP
+            ) {
+              result = validateEmptyAndAlphaNumeric(
+                jenisIdentitasUtama.tempatSIUP,
+                "Tempat Dikeluarkan SIUP"
+              );
+            } else {
+              result = validateAlphaNumeric(
+                jenisIdentitasUtama.tempatSIUP,
+                "Tempat Dikeluarkan SIUP"
+              );
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                tempatSIUP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tanggal berlaku SIUP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tanggalSIUP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (
+              jenisIdentitasUtama.dokumenLainnya.SIUP &&
+              jenisIdentitasUtama.dokumenLainnya.TDP
+            ) {
+              if (jenisIdentitasUtama.tanggalSIUP.length === 0) {
+                result = "Tanggal berlaku SIUP tidak boleh kosong.";
+              }
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                tanggalSIUP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Nomor TDP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          nomorTDP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (jenisIdentitasUtama.dokumenLainnya.TDP) {
+              result = validateEmptyAndNumeric(
+                jenisIdentitasUtama.nomorTDP,
+                "Nomor TDP"
+              );
+            } else {
+              result = validateNumeric(
+                jenisIdentitasUtama.nomorTDP,
+                "Nomor TDP"
+              );
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                nomorTDP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tempat Dikeluarkan TDP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tempatTDP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (
+              jenisIdentitasUtama.dokumenLainnya.SIUP &&
+              jenisIdentitasUtama.dokumenLainnya.TDP
+            ) {
+              result = validateEmptyAndAlphaNumeric(
+                jenisIdentitasUtama.tempatTDP,
+                "Tempat Dikeluarkan TDP"
+              );
+            } else {
+              result = validateAlphaNumeric(
+                jenisIdentitasUtama.tempatTDP,
+                "Tempat Dikeluarkan TDP"
+              );
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                tempatTDP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tanggal berlaku TDP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tanggalTDP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (
+              jenisIdentitasUtama.dokumenLainnya.SIUP &&
+              jenisIdentitasUtama.dokumenLainnya.TDP
+            ) {
+              if (jenisIdentitasUtama.tanggalTDP.length === 0) {
+                result = "Tanggal berlaku TDP tidak boleh kosong.";
+              }
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                tanggalTDP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
   ];
 
   const handleChange = (e) => {
@@ -485,6 +924,34 @@ export const ApplicationForm = () => {
       });
     }
 
+    if (e.target.name === "operasional") {
+      setPendapatanRataRata({
+        ...pendapatanRataRata,
+        operasional: e.target.value,
+      });
+    }
+
+    if (e.target.name === "nonoperasional") {
+      setPendapatanRataRata({
+        ...pendapatanRataRata,
+        nonOperasional: e.target.value,
+      });
+    }
+
+    if (e.target.name === "tujuanhubungan") {
+      setPendapatanRataRata({
+        ...pendapatanRataRata,
+        tujuanHubungan: e.target.value,
+      });
+    }
+
+    if (e.target.name === "omzet") {
+      setInformasiLainnya({
+        ...informasiLainnya,
+        omzet: e.target.value,
+      });
+    }
+
     // for checkbox
 
     if (
@@ -493,6 +960,16 @@ export const ApplicationForm = () => {
       setPersetujuan({
         ...persetujuan,
         [e.target.name]: e.target.checked,
+      });
+    }
+
+    if (["NIB", "SIUP", "TDP"].includes(e.target.name)) {
+      setJenisIdentitasUtama({
+        ...jenisIdentitasUtama,
+        dokumenLainnya: {
+          ...jenisIdentitasUtama.dokumenLainnya,
+          [e.target.name]: e.target.checked,
+        },
       });
     }
 
@@ -590,6 +1067,30 @@ export const ApplicationForm = () => {
             ...errorValidation.alamatElektronik,
           },
         };
+      } else if ("laporanKeuangan" in errorValidation) {
+        mergeErrors = {
+          ...mergeErrors,
+          laporanKeuangan: {
+            ...mergeErrors.laporanKeuangan,
+            ...errorValidation.laporanKeuangan,
+          },
+        };
+      } else if ("susunanManajemen" in errorValidation) {
+        mergeErrors = {
+          ...mergeErrors,
+          susunanManajemen: {
+            ...mergeErrors.susunanManajemen,
+            ...errorValidation.susunanManajemen,
+          },
+        };
+      } else if ("jenisIdentitasUtama" in errorValidation) {
+        mergeErrors = {
+          ...mergeErrors,
+          jenisIdentitasUtama: {
+            ...mergeErrors.jenisIdentitasUtama,
+            ...errorValidation.jenisIdentitasUtama,
+          },
+        };
       } else {
         mergeErrors = {
           ...mergeErrors,
@@ -664,11 +1165,24 @@ export const ApplicationForm = () => {
           <JenisIdentitasUtamaFields
             onChange={handleChange}
             errMsg={validationMessages.jenisIdentitasUtama}
+            values={jenisIdentitasUtama}
           />
-          <InformasiLainnyaFields />
-          <PendapatanRataRataFields />
-          <SusunanManajemenFields />
-          <LaporanKeuanganTahunanFields />
+          <InformasiLainnyaFields
+            values={informasiLainnya}
+            onChange={handleChange}
+          />
+          <PendapatanRataRataFields
+            values={pendapatanRataRata}
+            onChange={handleChange}
+          />
+          <SusunanManajemenFields
+            onChange={handleChange}
+            errMsg={validationMessages.susunanManajemen}
+          />
+          <LaporanKeuanganTahunanFields
+            onChange={handleChange}
+            errMsg={validationMessages.laporanKeuangan}
+          />
           <AlamatElektronikFields
             values={alamatElektronik}
             onChange={handleChange}

@@ -25,12 +25,44 @@ export const validateAlphabet = (state, label) => {
   return msg;
 };
 
+export const validateNumeric = (state, label) => {
+  let msg = "";
+  if (state.length > 0 && !isNumeric(state)) {
+    msg = `${label} harus numeric`;
+  } else {
+    msg = "";
+  }
+  return msg;
+};
+
+export const validateAlphaNumeric = (state, label) => {
+  let msg = "";
+  if (state.length > 0 && !isAlphaNumeric(state)) {
+    msg = `${label} harus alphanumeric`;
+  } else {
+    msg = "";
+  }
+  return msg;
+};
+
 export const validateEmptyAndNumeric = (state, label) => {
   let msg = "";
   if (state.length <= 0) {
     msg = `${label} Tidak Boleh Kosong`;
   } else if (!isNumeric(state)) {
     msg = `${label} harus numerik`;
+  } else {
+    msg = "";
+  }
+  return msg;
+};
+
+export const validateEmptyAndAlphabet = (state, label) => {
+  let msg = "";
+  if (state.length <= 0) {
+    msg = `${label} Tidak Boleh Kosong`;
+  } else if (!isAlphabet(state)) {
+    msg = `${label} harus alphabet`;
   } else {
     msg = "";
   }

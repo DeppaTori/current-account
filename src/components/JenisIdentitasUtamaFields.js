@@ -2,10 +2,12 @@ import { DateField } from "./DateField";
 import { TextBoxField } from "./TextBoxField";
 import { RadioField } from "./RadioField";
 
-export const JenisIdentitasUtamaFields = ({ errMsg, onChange }) => {
+export const JenisIdentitasUtamaFields = ({ errMsg, onChange, values }) => {
   return (
     <>
-      <p>Jenis Identitas Utama</p>
+      <p>
+        <b>Jenis Identitas Utama</b>
+      </p>
       <TextBoxField
         label="Nomor Akta Pendirian Perusahaan"
         errMsg={errMsg.nomor}
@@ -49,76 +51,96 @@ export const JenisIdentitasUtamaFields = ({ errMsg, onChange }) => {
       />
       <br />
       <div>
-        <input type="checkbox" id="doklainnya" name="doklainnya" value="NIB" />
+        <p>Dokumen Lainnya</p>
+        <input type="checkbox" id="doklainnya" name="NIB" onChange={onChange} />
         <label for="doklainnya">NIB</label>
-        <br />
+
         <input
           type="checkbox"
           id="doklainnya2"
-          name="doklainnya2"
-          value="SIUP"
+          name="SIUP"
+          onChange={onChange}
         />
         <label for="doklainnya2">SIUP</label>
-        <br />
+
         <input
           type="checkbox"
           id="doklainnya3"
-          name="doklainnya3"
-          value="TDP"
+          name="TDP"
+          onChange={onChange}
         />
         <label for="doklainnya3">TDP</label>
+        <br />
+        <br />
         <br />
       </div>
       <TextBoxField
         label="Nomor NIB"
-        // errMsg={errMsg.nomor}
+        errMsg={errMsg.nomorNIB}
         onChange={onChange}
         maxLength={13}
+        required={values.dokumenLainnya.NIB ? true : false}
       />
       <TextBoxField
         label="Tempat Dikeluarkan NIB"
-        // errMsg={errMsg.nomor}
+        errMsg={errMsg.tempatNIB}
         onChange={onChange}
         maxLength={40}
+        required={values.dokumenLainnya.NIB ? true : false}
       />
       <DateField
         label="Tanggal berlaku NIB"
-        // errMsg={errMsg.tglBerlakuAkta}
+        errMsg={errMsg.tanggalNIB}
         onChange={onChange}
+        required={values.dokumenLainnya.NIB ? true : false}
       />
       <TextBoxField
         label="Nomor SIUP"
-        // errMsg={errMsg.nomor}
+        errMsg={errMsg.nomorSIUP}
         onChange={onChange}
         maxLength={13}
+        required={values.dokumenLainnya.SIUP ? true : false}
       />
       <TextBoxField
         label="Tempat Dikeluarkan SIUP"
-        // errMsg={errMsg.nomor}
+        errMsg={errMsg.tempatSIUP}
         onChange={onChange}
         maxLength={40}
+        required={
+          values.dokumenLainnya.SIUP && values.dokumenLainnya.TDP ? true : false
+        }
       />
       <DateField
         label="Tanggal berlaku SIUP"
-        // errMsg={errMsg.tglBerlakuAkta}
+        errMsg={errMsg.tanggalSIUP}
         onChange={onChange}
+        required={
+          values.dokumenLainnya.SIUP && values.dokumenLainnya.TDP ? true : false
+        }
       />
       <TextBoxField
         label="TDP"
-        // errMsg={errMsg.nomor}
+        errMsg={errMsg.nomorTDP}
         onChange={onChange}
         maxLength={13}
+        required={values.dokumenLainnya.TDP ? true : false}
       />
       <TextBoxField
         label="Tempat Dikeluarkan TDP"
-        // errMsg={errMsg.nomor}
+        errMsg={errMsg.tempatTDP}
         onChange={onChange}
         maxLength={40}
+        required={
+          values.dokumenLainnya.SIUP && values.dokumenLainnya.TDP ? true : false
+        }
       />
       <DateField
         label="Tanggal berlaku TDP"
-        // errMsg={errMsg.tglBerlakuAkta}
+        errMsg={errMsg.tanggalTDP}
         onChange={onChange}
+        required={
+          values.dokumenLainnya.SIUP && values.dokumenLainnya.TDP ? true : false
+        }
       />
     </>
   );

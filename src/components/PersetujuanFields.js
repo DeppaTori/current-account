@@ -3,7 +3,7 @@ export const PersetujuanFields = ({ onChange, errMsg }) => {
     <>
       <h4>Persetujuan</h4>
       <div>
-        <p className="required">Ketentuan dan Syarat khusu rekening Giro</p>
+        <p className="required">Ketentuan dan Syarat khusus rekening Giro</p>
         <input
           type="checkbox"
           id="ketentuan1"

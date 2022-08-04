@@ -29,7 +29,7 @@ export const DateField = ({
         <br />
         {errMsg.length > 0 && <span className="error-text">{errMsg}</span>}
       </div>
-
+      <br />
       <br />
     </div>
   );
