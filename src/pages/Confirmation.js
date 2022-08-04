@@ -17,6 +17,7 @@ export const Confirmation = () => {
     laporanKeuangan,
     hubunganDgnNasabahLain,
     hubunganDgnPihakLain,
+    seringBertransaksiDengan,
   } = confirmationLabels;
   const pendapatanPerBulanLabelValues = generateLabelValues(
     pendapatanRataPerBulan,
@@ -44,6 +45,11 @@ export const Confirmation = () => {
   const hubunganDgnPihakLainLabelValues = generateLabelValues(
     hubunganDgnPihakLain,
     confirmationData.hubunganDgnPihakLain
+  );
+
+  const seringBertransaksiDenganLabelValues = generateLabelValues(
+    seringBertransaksiDengan,
+    confirmationData.seringBertransaksiDengan
   );
 
   return (
@@ -78,6 +84,11 @@ export const Confirmation = () => {
         title="Hubungan dengan pihak lain di Bank"
         fields={hubunganDgnPihakLainLabelValues}
         prefixId="HDNPLID_"
+      />
+      <GenericFields
+        title="Sering bertransaksi dengan"
+        fields={seringBertransaksiDenganLabelValues}
+        prefixId="SBDID_"
       />
       <button>Submit</button>
     </>

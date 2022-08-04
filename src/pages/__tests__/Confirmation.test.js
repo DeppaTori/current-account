@@ -83,6 +83,17 @@ describe("Confirmation", () => {
     }
   });
 
+  it("renders Sering bertransaksi dengan section", () => {
+    render(<Confirmation />);
+    expectTextInTheDocument("Sering bertransaksi dengan");
+    for (const property in confirmationData.seringBertransaksiDengan) {
+      expectTestIdInTheDocument("SBDID_" + property);
+      expectTextInTheDocument(
+        confirmationData.seringBertransaksiDengan[property]
+      );
+    }
+  });
+
   it("renders headings", () => {
     render(<Confirmation />);
     expect(

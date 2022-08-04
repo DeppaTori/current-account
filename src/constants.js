@@ -105,6 +105,13 @@ export const confirmationData = {
     Alamat: "Padang",
     NoTelepon: "08111111111",
   },
+  seringBertransaksiDengan: {
+    Nama: "Batman",
+    JenisHubungan: "Teman Dong",
+    SektorUsaha: "Perkapalan",
+    Alamat: "Jakarta Timur",
+    NoTelepon: "022222222",
+  },
 };
 
 export const confirmationLabels = {
@@ -134,6 +141,13 @@ export const confirmationLabels = {
   laporanKeuangan: ["Modal Dasar Perusahaan", "Modal Disetor"],
   hubunganDgnNasabahLain: ["Nama", "Produk", "Jenis Hubungan"],
   hubunganDgnPihakLain: [
+    "Nama",
+    "Jenis Hubungan",
+    "Sektor Usaha",
+    "Alamat",
+    "No. Telepon",
+  ],
+  seringBertransaksiDengan: [
     "Nama",
     "Jenis Hubungan",
     "Sektor Usaha",
