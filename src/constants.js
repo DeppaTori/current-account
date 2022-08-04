@@ -79,6 +79,16 @@ export const confirmationData = {
     Produk2: "Produk A",
     NoRekening2: "235235333",
   },
+  susunanManajemen: {
+    Direktur: "Budi Direktur",
+    Direktur1: "Tono Direktur",
+    Direktur2: "Wati Direktur",
+    Direktur3: "Inem Direktur",
+    KomisarisUtama: "Suyono Komisaris",
+    Komisaris1: "Bambang Komisaris",
+    Komisaris2: "Yanti Komisaris",
+    Komisaris3: "Ye Komisaris",
+  },
 };
 
 export const confirmationLabels = {
@@ -94,5 +104,15 @@ export const confirmationLabels = {
     "Bank 2",
     "Produk 2",
     "No. Rekening 2",
+  ],
+  susunanManajemen: [
+    "Direktur",
+    "Direktur 1",
+    "Direktur 2",
+    "Direktur 3",
+    "Komisaris Utama",
+    "Komisaris 1",
+    "Komisaris 2",
+    "Komisaris 3",
   ],
 };
