@@ -103,6 +103,17 @@ describe("Confirmation", () => {
     }
   });
 
+  it("renders Fasilitas Pembayaran Tagihan dan Lainnya section", () => {
+    render(<Confirmation />);
+    expectTextInTheDocument("Fasilitas Pembayaran Tagihan dan Lainnya");
+    for (const property in confirmationData.fasilitasPembayaranTagihan) {
+      expectTestIdInTheDocument("FTLID_" + property);
+      expectTextInTheDocument(
+        confirmationData.fasilitasPembayaranTagihan[property]
+      );
+    }
+  });
+
   it("renders headings", () => {
     render(<Confirmation />);
     expect(

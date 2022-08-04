@@ -123,6 +123,12 @@ export const confirmationData = {
     TujuanPembukaanRekening: "Nabung",
     TujuanPenggunaanDana: "Usaha",
   },
+  fasilitasPembayaranTagihan: {
+    FasilitasPembayaranTagihan: "ATM",
+    Number: "111222",
+    FasilitasLainnya: "Internet Banking",
+    NumberFasilitasLainnya: "21232223",
+  },
 };
 
 export const confirmationLabels = {
@@ -175,5 +181,11 @@ export const confirmationLabels = {
     "Jenis Valuta",
     "Tujuan Pembukaan Rekening",
     "Tujuan Penggunaan Dana",
+  ],
+  fasilitasPembayaranTagihan: [
+    "Fasilitas Pembayaran Tagihan",
+    "Number",
+    "Fasilitas Lainnya",
+    "Number Fasilitas Lainnya",
   ],
 };
