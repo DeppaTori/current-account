@@ -4,24 +4,7 @@ import { confirmationData } from "./constants";
 const initialState = {
   value: 0,
   data: confirmationData,
-  tasks: [
-    {
-      ticketNumber: "0120223",
-      createdDate: "04-08-2022",
-      area: "Sudirman",
-      email: "tiara@nicmail.com",
-      application: "NEWACCOUNT",
-      status: "Created",
-    },
-    {
-      ticketNumber: "23455",
-      createdDate: "05-08-2022",
-      area: "Tangerang",
-      email: "tiara@nicmail.com",
-      application: "NEWACCOUNT",
-      status: "Created",
-    },
-  ],
+  tasks: [],
 };
 
 export const accountSlice = createSlice({
@@ -46,14 +29,22 @@ export const accountSlice = createSlice({
     updateStatus: (state, action) => {
       const index = action.payload.index;
       const tasks = [...state.tasks];
-      console.log(index);
       tasks[index].status = action.payload.status;
       state.task = tasks;
+    },
+    addTask: (state, action) => {
+      state.tasks = [...state.tasks, action.payload];
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount, save, updateStatus } =
-  accountSlice.actions;
+export const {
+  increment,
+  decrement,
+  incrementByAmount,
+  save,
+  updateStatus,
+  addTask,
+} = accountSlice.actions;
 
 export default accountSlice.reducer;

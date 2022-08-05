@@ -6,9 +6,13 @@ import { InformasiLainnya } from "../components/confirmation/InformasiLainnya";
 import { GenericFields } from "../components/confirmation/GenericFields";
 import { generateLabelValues } from "../Helper";
 import { Paper } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addTask } from "../accountSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Confirmation = () => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
   const confirmationData = useSelector((state) => state.account.data);
   const { header, dataPerusahaan, jenisIdentitasUtama, informasiLainnya } =
     confirmationData;
@@ -85,6 +89,20 @@ export const Confirmation = () => {
     confirmationData.unggahDokumen
   );
 
+  const handleClick = () => {
+    dispatch(
+      addTask({
+        ticketNumber: Math.random().toString(),
+        createdDate: confirmationData.header.date,
+        area: confirmationData.jenisIdentitasUtama.area,
+        email: confirmationData.alamatElektronik.Email,
+        application: "NEW ACCOUNT",
+        status: "Created",
+      })
+    );
+    navigate("/");
+  };
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Paper style={{ width: "800px", textAlign: "left", padding: 20 }}>
@@ -151,7 +169,12 @@ export const Confirmation = () => {
           fields={unggahDokumenLabelValues}
           prefixId="UDID_"
         />
-        <button style={{ fontSize: "24px", marginTop: "30px" }}>Submit</button>
+        <button
+          style={{ fontSize: "24px", marginTop: "30px" }}
+          onClick={handleClick}
+        >
+          Submit
+        </button>
       </Paper>
     </div>
   );

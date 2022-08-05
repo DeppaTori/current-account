@@ -31,7 +31,7 @@ export const JenisIdentitasUtamaFields = ({ errMsg, onChange, values }) => {
         onChange={onChange}
         maxLength={100}
       />
-      <RadioField label="Alamat Kirim Surat" />
+      {/* <RadioField label="Alamat Kirim Surat" /> */}
       <TextBoxField
         label="NPWP"
         errMsg={errMsg.nomorNPWP}

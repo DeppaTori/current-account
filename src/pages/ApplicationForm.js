@@ -20,6 +20,7 @@ import {
   validateEmpty,
   validateEmptyAndAlphabet,
   validateEmptyAndAlphaNumeric,
+  validateEmptyAndEmail,
   validateEmptyAndNumeric,
   validateNumeric,
 } from "../Helper";
@@ -33,6 +34,7 @@ export const ApplicationForm = () => {
   const [currentDate, setCurrentDate] = useState(
     new Date().toLocaleDateString()
   );
+
   const [branchCode, setBranchCode] = useState("");
   const [metodePenyerahan, setMetodePenyerahan] = useState("unggahdokumen");
   const [badanUsahaLainnya, setBadanUsahaLainnya] = useState("");
@@ -443,10 +445,7 @@ export const ApplicationForm = () => {
       validations: [
         {
           validate: function () {
-            let result = validateEmptyAndAlphaNumeric(
-              alamatElektronik.email,
-              "Email"
-            );
+            let result = validateEmptyAndEmail(alamatElektronik.email, "Email");
 
             return {
               alamatElektronik: {
@@ -1127,10 +1126,12 @@ export const ApplicationForm = () => {
     }
     if (persetujuan.syaratA === false && persetujuan.syaratB === false) {
       syaratError = "Syarat Khusus Join Account tidak boleh kosong";
+      totalError++;
     }
     if (persetujuan.ketentuanA === false && persetujuan.ketentuanB === false) {
       ketentuanError =
         "Ketentuan dan Syarat khusu rekening Giro tidak boleh kosong";
+      totalError++;
     }
 
     let mergeErrors = {
@@ -1206,6 +1207,22 @@ export const ApplicationForm = () => {
           ...mergeErrors,
           ...errorValidation,
         };
+      }
+    });
+
+    let totalFixError = 0;
+
+    Object.entries(mergeErrors).map((item) => {
+      if (typeof item[1] !== "string") {
+        Object.entries(item[1]).map((deepItem) => {
+          if (deepItem[1].length > 0) {
+            totalFixError++;
+          }
+        });
+      } else {
+        if (item[1].length > 0) {
+          totalFixError++;
+        }
       }
     });
 
@@ -1379,10 +1396,12 @@ export const ApplicationForm = () => {
       })
     );
 
-    if (metodePenyerahan === "unggahdokumen") {
-      navigate("/upload-document");
-    } else {
-      navigate("/confirmation");
+    if (totalFixError === 0) {
+      if (metodePenyerahan === "unggahdokumen") {
+        navigate("/upload-document");
+      } else {
+        navigate("/confirmation");
+      }
     }
   };
 

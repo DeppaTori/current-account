@@ -2,6 +2,12 @@ export const generateName = (label) => label.replace(/ /g, "").toLowerCase();
 export const isAlphaNumeric = (text) => text.toLowerCase().match(/^[0-9a-z]+$/);
 export const isNumeric = (text) => text.toLowerCase().match(/^[0-9]+$/);
 export const isAlphabet = (text) => text.toLowerCase().match(/^[a-z]+$/);
+export const isEmail = (text) =>
+  text
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
 
 export const validateEmptyAndAlphaNumeric = (state, label) => {
   let msg = "";
@@ -51,6 +57,18 @@ export const validateEmptyAndNumeric = (state, label) => {
     msg = `${label} Tidak Boleh Kosong`;
   } else if (!isNumeric(state)) {
     msg = `${label} harus numerik`;
+  } else {
+    msg = "";
+  }
+  return msg;
+};
+
+export const validateEmptyAndEmail = (state, label) => {
+  let msg = "";
+  if (state.length <= 0) {
+    msg = `${label} Tidak Boleh Kosong`;
+  } else if (!isEmail(state)) {
+    msg = `${label} bukan format email`;
   } else {
     msg = "";
   }

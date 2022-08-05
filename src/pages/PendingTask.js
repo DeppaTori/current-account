@@ -8,6 +8,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { dataPendingTask } from "../constants";
 import { useSelector, useDispatch } from "react-redux";
 import { updateStatus } from "../accountSlice";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 export const PendingTask = () => {
   const [open, setOpen] = useState(false);
@@ -107,51 +116,72 @@ export const PendingTask = () => {
     <>
       <h3>Pending Task Bank User</h3>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <table border={1}>
-          <thead>
-            <th>Ticket Number</th>
-            <th>Created Date</th>
-            <th>Area</th>
-            <th>Email</th>
-            <th>Application</th>
-            <th>Status</th>
-            <th>Action</th>
-          </thead>
-          <tbody>
-            {tasks.map((task, i) => (
-              <tr key={i}>
-                <td>{task.ticketNumber}</td>
-                <td>{task.createdDate}</td>
-                <td>{task.area}</td>
-                <td>{task.email}</td>
-                <td>{task.application}</td>
-                <td>{task.status}</td>
-                <td>
-                  <button onClick={() => handleClickOpen(i)}>Approve</button>|
-                  <button onClick={() => handleClickOpenReject(i)}>
-                    Reject
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {/* Ticket Number : <span>{dummyData.ticketNumber}</span>
-        <br />
-        Created Date : <span>{dummyData.createdDate}</span>
-        <br />
-        Area : <span>{dummyData.area}</span>
-        <br />
-        Email : <span>{dummyData.email}</span>
-        <br />
-        Application : <span>{dummyData.application}</span>
-        <br />
-        Status : <span>{dummyData.status}</span>
-        <br /> */}
+        {tasks.length === 0 && <p>No task to process.</p>}
+        {tasks.length > 0 && (
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Ticket Number</TableCell>
+                  <TableCell>Created Date</TableCell>
+                  <TableCell>Area</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Application</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Action</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {tasks.map((task, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{task.ticketNumber}</TableCell>
+                    <TableCell>{task.createdDate}</TableCell>
+                    <TableCell>{task.area}</TableCell>
+                    <TableCell>{task.email}</TableCell>
+                    <TableCell>{task.application}</TableCell>
+                    <TableCell>
+                      <span
+                        style={{
+                          color:
+                            task.status.toLowerCase() === "approved"
+                              ? "green"
+                              : task.status.toLowerCase() === "rejected"
+                              ? "red"
+                              : "blue",
+                        }}
+                      >
+                        {task.status}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      {task.status.toLowerCase() === "created" && (
+                        <>
+                          <Button
+                            color="success"
+                            variant="outlined"
+                            onClick={() => handleClickOpen(i)}
+                          >
+                            Approve
+                          </Button>
+                          |
+                          <Button
+                            color="error"
+                            variant="outlined"
+                            onClick={() => handleClickOpenReject(i)}
+                          >
+                            Reject
+                          </Button>
+                        </>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
       </div>
-      {/* <button onClick={handleClickOpen}>Approve</button>
-      <br />
-      <button onClick={handleClickOpenReject}>Reject</button> */}
+
       <DialogPopup />
       <DialogPopupReject />
     </>
