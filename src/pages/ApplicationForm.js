@@ -25,8 +25,14 @@ import {
 } from "../Helper";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { save } from "../accountSlice";
 
 export const ApplicationForm = () => {
+  const dispatch = useDispatch();
+  const [currentDate, setCurrentDate] = useState(
+    new Date().toLocaleDateString()
+  );
   const [branchCode, setBranchCode] = useState("");
   const [metodePenyerahan, setMetodePenyerahan] = useState("unggahdokumen");
   const [badanUsahaLainnya, setBadanUsahaLainnya] = useState("");
@@ -52,6 +58,9 @@ export const ApplicationForm = () => {
       nomorTDP: "",
       tempatTDP: "",
       tanggalTDP: "",
+      nomorNPWP: "",
+      tempatNPWP: "",
+      tanggalNPWP: "",
     },
     persetujuan: {
       ketentuan: "",
@@ -85,6 +94,7 @@ export const ApplicationForm = () => {
     },
     informasiLainnya: {
       omzet: "",
+      bidangUsaha: "",
     },
   });
   const [namaPerusahaan, setNamaPerusahaan] = useState("");
@@ -110,6 +120,9 @@ export const ApplicationForm = () => {
     nomorTDP: "",
     tempatTDP: "",
     tanggalTDP: "",
+    nomorNPWP: "",
+    tempatNPWP: "",
+    tanggalNPWP: "",
   });
   const [persetujuan, setPersetujuan] = useState({
     ketentuanA: false,
@@ -150,6 +163,7 @@ export const ApplicationForm = () => {
 
   const [informasiLainnya, setInformasiLainnya] = useState({
     omzet: "1000000000",
+    bidangUsaha: "",
   });
 
   let navigate = useNavigate();
@@ -866,6 +880,102 @@ export const ApplicationForm = () => {
         },
       ],
     },
+    {
+      name: generateName("NPWP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          nomorNPWP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndNumeric(
+              jenisIdentitasUtama.nomorNPWP,
+              "NPWP"
+            );
+
+            return {
+              jenisIdentitasUtama: {
+                nomorNPWP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tempat dikeluarkan NPWP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tempatNPWP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateEmptyAndAlphaNumeric(
+              jenisIdentitasUtama.tempatNPWP,
+              "Tempat dikeluarkan NPWP"
+            );
+
+            return {
+              jenisIdentitasUtama: {
+                tempatNPWP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Tanggal berlaku NPWP"),
+      setState: (val) =>
+        setJenisIdentitasUtama({
+          ...jenisIdentitasUtama,
+          tanggalNPWP: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = "";
+            if (jenisIdentitasUtama.tanggalNPWP.length === 0) {
+              result = "Tanggal berlaku NPWP tidak boleh kosong";
+            }
+
+            return {
+              jenisIdentitasUtama: {
+                tanggalNPWP: result,
+              },
+            };
+          },
+        },
+      ],
+    },
+    {
+      name: generateName("Bidang Usaha"),
+      setState: (val) =>
+        setInformasiLainnya({
+          ...informasiLainnya,
+          bidangUsaha: val,
+        }),
+      validations: [
+        {
+          validate: function () {
+            let result = validateAlphabet(
+              informasiLainnya.bidangUsaha,
+              "Bidang Usaha"
+            );
+
+            return {
+              informasiLainnya: {
+                bidangUsaha: result,
+              },
+            };
+          },
+        },
+      ],
+    },
   ];
 
   const handleChange = (e) => {
@@ -1104,9 +1214,176 @@ export const ApplicationForm = () => {
       ...mergeErrors,
     });
 
-    // if (metodePenyerahan === "unggahdokumen") {
-    //   navigate("/upload-document", { replace: true });
-    // }
+    let ketentuanStr = "";
+    let syaratStr = "";
+
+    if (persetujuan.ketentuanA) {
+      ketentuanStr += ", ketentuan A";
+    }
+    if (persetujuan.ketentuanB) {
+      ketentuanStr += ", ketentuan B";
+    }
+    if (persetujuan.syaratA) {
+      syaratStr += ", syarat A";
+    }
+    if (persetujuan.syaratB) {
+      syaratStr += ", syarat B";
+    }
+
+    dispatch(
+      save({
+        header: {
+          date: currentDate,
+          bentukBadanUsaha:
+            jenisBadanUsaha === "lainnya" ? badanUsahaLainnya : jenisBadanUsaha,
+        },
+        dataPerusahaan: {
+          nama: namaPerusahaan,
+          tempatBerdiri: tempatBerdiriPerusahaan,
+          tanggalBediri: tanggalBerdiriPerusahaan,
+          bidang: bidangUsahaPerusahaan,
+          group: "-",
+        },
+        jenisIdentitasUtama: {
+          aktaPendirian: {
+            nomor: jenisIdentitasUtama.nomor,
+            tempat: jenisIdentitasUtama.tempatKeluarAkta,
+            berlaku: jenisIdentitasUtama.tglBerlakuAkta,
+          },
+          alamatKantor: jenisIdentitasUtama.alamatKantor,
+          provinsi: "-",
+          kabupatenkota: "-",
+          area: "-",
+          alamatPabrik: "-",
+          alamatProyek: "-",
+          alamatKirimSurat: "-",
+          npwp: {
+            nomor: jenisIdentitasUtama.nomorNPWP,
+            tempat: jenisIdentitasUtama.tempatNPWP,
+            berlaku: jenisIdentitasUtama.tanggalNPWP,
+          },
+          nib: {
+            nomor: jenisIdentitasUtama.nomorNIB,
+            tempat: jenisIdentitasUtama.tempatNIB,
+            berlaku: jenisIdentitasUtama.tanggalNIB,
+          },
+          siup: {
+            nomor: jenisIdentitasUtama.nomorSIUP,
+            tempat: jenisIdentitasUtama.tempatSIUP,
+            berlaku: jenisIdentitasUtama.tanggalSIUP,
+          },
+          tdp: {
+            nomor: jenisIdentitasUtama.nomorTDP,
+            tempat: jenisIdentitasUtama.tempatTDP,
+            berlaku: jenisIdentitasUtama.tanggalTDP,
+          },
+          nomor: {
+            nomor: "-",
+            tempat: "-",
+            berlaku: "-",
+          },
+        },
+        informasiLainnya: {
+          bidang: informasiLainnya.bidangUsaha,
+          alamat: "-",
+        },
+        pendapatanRataPerBulan: {
+          PendapatanOperasional: pendapatanRataRata.operasional,
+          PendapatanNonOperasional: pendapatanRataRata.nonOperasional,
+          TujuanBerhubungandenganBank: pendapatanRataRata.tujuanHubungan,
+        },
+        rekeningSaatIni: {
+          Bank1: "-",
+          Produk1: "-",
+          NoRekening1: "-",
+          Bank2: "-",
+          Produk2: "-",
+          NoRekening2: "-",
+        },
+        susunanManajemen: {
+          Direktur: susunanManajemen.direktur,
+          Direktur1: "-",
+          Direktur2: "-",
+          Direktur3: "-",
+          KomisarisUtama: susunanManajemen.komisaris,
+          Komisaris1: "-",
+          Komisaris2: "-",
+          Komisaris3: "-",
+        },
+        laporanKeuangan: {
+          ModalDasarPerusahaan: laporanKeuangan.modalDasar,
+          ModalDisetor: laporanKeuangan.modalDisetor,
+        },
+        hubunganDgnNasabahLain: {
+          Nama: "-",
+          Produk: "-",
+          JenisHubungan: "-",
+        },
+        hubunganDgnPihakLain: {
+          Nama: "-",
+          JenisHubungan: "-",
+          SektorUsaha: "-",
+          Alamat: "-",
+          NoTelepon: "-",
+        },
+        seringBertransaksiDengan: {
+          Nama: "-",
+          JenisHubungan: "-",
+          SektorUsaha: "-",
+          Alamat: "-",
+          NoTelepon: "-",
+        },
+        alamatElektronik: {
+          TeleponRumah: "-",
+          TeleponSelular: "-",
+          FAX: "-",
+          TeleponKantor: "-",
+          Email: alamatElektronik.email,
+          JenisRekening:
+            alamatElektronik.jenisRekening === "others"
+              ? alamatElektronik.others
+              : alamatElektronik.jenisRekening,
+          JenisValuta:
+            alamatElektronik.jenisValuta === "others"
+              ? alamatElektronik.lainlain
+              : alamatElektronik.jenisValuta,
+          TujuanPembukaanRekening: "-",
+          TujuanPenggunaanDana: "-",
+        },
+        fasilitasPembayaranTagihan: {
+          FasilitasPembayaranTagihan: "-",
+          Number: "-",
+          FasilitasLainnya: "-",
+          NumberFasilitasLainnya: "-",
+        },
+        konfirmasiTransaksi: {
+          NamaPejabatyangdihubungi: konfirmasiTransaksi.nama,
+          NoTelepon: konfirmasiTransaksi.nomor,
+          Jabatan: konfirmasiTransaksi.jabatan,
+          NoKTP: konfirmasiTransaksi.nomorKTP,
+          KodeKonfirmasi: "-",
+          NamaPejabatyangdihubungi2: "-",
+          NoTelepon2: "-",
+          Jabatan2: "-",
+          NoKTP2: "-",
+        },
+        persetujuan: {
+          KetentuandanSyaratkhususrekeningGiro: ketentuanStr,
+          SyaratKhususJoinAccount: syaratStr,
+        },
+        unggahDokumen: {
+          No: "-",
+          NamaDokumenHarusUpload: "-",
+          NamaDokumenBerhasilUpload: "-",
+        },
+      })
+    );
+
+    if (metodePenyerahan === "unggahdokumen") {
+      navigate("/upload-document");
+    } else {
+      navigate("/confirmation");
+    }
   };
 
   return (
@@ -1115,7 +1392,7 @@ export const ApplicationForm = () => {
         <h2>Aplikasi Pembukaan Rekening Giro</h2>
 
         <form onSubmit={handleSubmit}>
-          <p>Date : {new Date().toLocaleDateString()}</p>
+          <p>Date : {currentDate}</p>
 
           <p>
             <b>Metode Penyerahan Dokumen</b>
@@ -1170,6 +1447,7 @@ export const ApplicationForm = () => {
           <InformasiLainnyaFields
             values={informasiLainnya}
             onChange={handleChange}
+            errMsg={validationMessages.informasiLainnya}
           />
           <PendapatanRataRataFields
             values={pendapatanRataRata}

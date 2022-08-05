@@ -1,14 +1,14 @@
 import { RadioField } from "./RadioField";
 import { TextBoxField } from "./TextBoxField";
 
-export const InformasiLainnyaFields = ({ onChange, values }) => {
+export const InformasiLainnyaFields = ({ onChange, values, errMsg }) => {
   return (
     <>
       <h4>Informasi Lainnya</h4>
       <TextBoxField
         label="Bidang Usaha"
-        // errMsg={errMsg.nomor}
-        // onChange={onChange}
+        errMsg={errMsg.bidangUsaha}
+        onChange={onChange}
         maxLength={40}
         required={false}
       />

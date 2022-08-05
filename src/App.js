@@ -5,17 +5,28 @@ import { ApplicationForm } from "./pages/ApplicationForm";
 import { Confirmation } from "./pages/Confirmation";
 import { PendingTask } from "./pages/PendingTask";
 import { UploadDocument } from "./pages/UploadDocument";
+import { Outlet, Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/form" element={<ApplicationForm />} />
-        <Route path="/confirmation" element={<Confirmation />} />
-        <Route path="/pending-task" element={<PendingTask />} />
-        <Route path="/upload-document" element={<UploadDocument />} />
-      </Routes>
+      <h1>Current Account</h1>
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem",
+        }}
+      >
+        <Link to="/form">
+          <Button variant="contained">Aplikasi Pembukaan Rekening Giro</Button>
+        </Link>{" "}
+        |{" "}
+        <Link to="/pending-task">
+          <Button variant="outlined">Pending Task</Button>
+        </Link>
+      </nav>
+      <Outlet />
     </div>
   );
 }

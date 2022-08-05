@@ -6,8 +6,10 @@ import { InformasiLainnya } from "../components/confirmation/InformasiLainnya";
 import { GenericFields } from "../components/confirmation/GenericFields";
 import { generateLabelValues } from "../Helper";
 import { Paper } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export const Confirmation = () => {
+  const confirmationData = useSelector((state) => state.account.data);
   const { header, dataPerusahaan, jenisIdentitasUtama, informasiLainnya } =
     confirmationData;
 

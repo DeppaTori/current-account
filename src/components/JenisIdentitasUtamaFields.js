@@ -34,19 +34,19 @@ export const JenisIdentitasUtamaFields = ({ errMsg, onChange, values }) => {
       <RadioField label="Alamat Kirim Surat" />
       <TextBoxField
         label="NPWP"
-        // errMsg={errMsg.nomor}
+        errMsg={errMsg.nomorNPWP}
         onChange={onChange}
         maxLength={15}
       />
       <TextBoxField
         label="Tempat dikeluarkan NPWP"
-        // errMsg={errMsg.nomor}
+        errMsg={errMsg.tempatNPWP}
         onChange={onChange}
         maxLength={40}
       />
       <DateField
         label="Tanggal berlaku NPWP"
-        // errMsg={errMsg.tglBerlakuAkta}
+        errMsg={errMsg.tanggalNPWP}
         onChange={onChange}
       />
       <br />
