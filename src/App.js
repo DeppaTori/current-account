@@ -9,6 +9,7 @@ import { Outlet, Link } from "react-router-dom";
 import { Button } from "@mui/material";
 
 function App() {
+  console.log(process.env);
   return (
     <div className="App">
       <h1>Current Account</h1>
